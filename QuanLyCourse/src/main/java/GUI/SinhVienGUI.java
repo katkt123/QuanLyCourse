@@ -6,8 +6,10 @@ package GUI;
 
 import BLL.SinhVienBLL;
 import DTO.SinhVienDTO;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +29,11 @@ public class SinhVienGUI extends javax.swing.JPanel {
             return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
         }
     };
+    
+    public static int pid;
+    public static String fn;
+    public static String ln;
+    public static String ed;
     
     /**
      * Creates new form SinhVienGUI
@@ -106,6 +113,11 @@ public class SinhVienGUI extends javax.swing.JPanel {
 
         jButton_Add.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Add.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Add.png")); // NOI18N
+        jButton_Add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_AddActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -116,6 +128,19 @@ public class SinhVienGUI extends javax.swing.JPanel {
         jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
 
         jTextField_Search.setText("Nhập thông tin tìm kiếm : .....");
+        jTextField_Search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_SearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_SearchFocusLost(evt);
+            }
+        });
+        jTextField_Search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_SearchKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -139,8 +164,18 @@ public class SinhVienGUI extends javax.swing.JPanel {
         );
 
         jButton_Edit.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Edit.png")); // NOI18N
+        jButton_Edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_EditActionPerformed(evt);
+            }
+        });
 
         jButton_Refresh.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Refresh.png")); // NOI18N
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -220,6 +255,72 @@ public class SinhVienGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
+        // TODO add your handling code here:
+        AddSinhVienGUI asv = new AddSinhVienGUI();
+        asv.setVisible(true);
+    }//GEN-LAST:event_jButton_AddActionPerformed
+
+    private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable_SinhVien.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để sửa đổi.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            pid = (int) jTable_SinhVien.getValueAt(selectedRow, 0);
+            fn = jTable_SinhVien.getValueAt(selectedRow, 1).toString();
+            ln = jTable_SinhVien.getValueAt(selectedRow, 2).toString();
+            ed = jTable_SinhVien.getValueAt(selectedRow, 3).toString();
+            UpdateSinhVienGUI usv = new UpdateSinhVienGUI(pid,fn,ln,ed);
+            usv.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton_EditActionPerformed
+
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
+        // TODO add your handling code here:
+        loadSV();
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
+
+    private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
+        // TODO add your handling code here:
+        String searchText = jTextField_Search.getText().trim();
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<SinhVienDTO> searchResult = svBLL.search(searchText);
+        
+        for(int i = modelSV.getRowCount()-1;i>=0;i--)
+            modelSV.removeRow(i);
+        for(int i = 0; i<searchResult.size();i++){
+            SinhVienDTO em= searchResult.get(i);
+            int stt= i+1;
+            int id= em.getPersonID();
+            String first = em.getFirstName();
+            String last = em.getLastName();
+            String enrollment = em.getEnrollmentDate();
+            
+        
+            Object[] row = {id,first,last,enrollment};
+            modelSV.addRow(row);
+        }
+    }//GEN-LAST:event_jTextField_SearchKeyReleased
+
+    private void jTextField_SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusGained
+        // TODO add your handling code here:
+        if (jTextField_Search.getText().equals("Nhập thông tin tìm kiếm : .....")) {
+                    jTextField_Search.setText("");
+                    jTextField_Search.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_jTextField_SearchFocusGained
+
+    private void jTextField_SearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusLost
+        // TODO add your handling code here:
+        if (jTextField_Search.getText().isEmpty()) {
+                    jTextField_Search.setText("Nhập thông tin tìm kiếm : .....");
+                    jTextField_Search.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_jTextField_SearchFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -38,7 +38,7 @@ public class KetNoiPHP {
         try {
             conn = (Connection) DriverManager.getConnection(dbPath,root,pass);
             state = conn.createStatement();
-            System.out.print("Kết nối PHP thành công !!!!!!!!!!!");
+//            System.out.print("Kết nối PHP thành công !!!!!!!!!!!");
             } catch (SQLException ex) {
                 System.out.print(ex.getMessage());
             }

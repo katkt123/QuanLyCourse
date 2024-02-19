@@ -13,6 +13,7 @@ public class SinhVienDTO {
     private String LastName;
     private String FirstName;
     private String EnrollmentDate;
+    private String HireDate = null;
     
     public SinhVienDTO(){
         this.EnrollmentDate = "";
@@ -58,6 +59,14 @@ public class SinhVienDTO {
 
     public void setPersonID(int PersonID) {
         this.PersonID = PersonID;
+    }
+
+    public void setHireDate(String HireDate) {
+        this.HireDate = HireDate;
+    }
+
+    public String getHireDate() {
+        return HireDate;
     }
     
 }
