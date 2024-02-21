@@ -74,10 +74,6 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         }
         
         CustomActionButton();
-        
-        ResetTXT();
-         
-        rdbTatCa.setSelected(true);
       
         loadPC();
               
@@ -85,6 +81,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     }
     
      public void loadPC(){
+         
+        ResetTXT();
+         
+        rdbTatCa.setSelected(true);
          
         // Thực hiện lấy dữ liệu
         listHTPC = phanCongBLL.getListHienThiPhanCong();
@@ -142,6 +142,53 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         txtTitle.setText("");
         txtPersonID.setText("");
 
+    }
+    
+    public void SearchWith(){
+        // Lấy nội dung để lọc
+        String CourseID_str = txtCourseID.getText();
+        String Title_str = txtTitle.getText();
+        String PersonID_str = txtPersonID.getText();
+        String Name_str = txtName.getText();
+        
+        // Xóa nội dung hiện tại trên bảng
+        modelPC.setRowCount(0);
+        
+        //Lọc
+        for(int i = 0; i < listHTPC.size();i++){
+            
+            HienThiPhanCongDTO em= listHTPC.get(i);
+            int CourseID = em.getCourseID();
+            String title = em.getTitle();
+            int PersonID = em.getPersonID();
+            String Name = em.getName();
+            
+            if (Integer.toString(CourseID).contains(CourseID_str) && title.contains(Title_str) && Integer.toString(PersonID).contains(PersonID_str) && Name.contains(Name_str)){
+                if(rdbTatCa.isSelected()){
+                    if (PersonID != 0){
+                    Object[] row = {CourseID,title, PersonID, Name};
+                    modelPC.addRow(row);
+                    }
+                    else{
+                        Object[] row = {CourseID,title," ", Name};
+                        modelPC.addRow(row);
+                    }
+                }
+                else if (rdbChua.isSelected()){
+                    if (PersonID == 0){
+                        Object[] row = {CourseID,title," ", Name};
+                        modelPC.addRow(row);
+                    }
+                }
+                else if (rdbDa.isSelected()){
+                    if (PersonID != 0){
+                        Object[] row = {CourseID,title,PersonID, Name};
+                        modelPC.addRow(row);
+                    }
+                }
+                    
+            }
+        }
     }
 
     /**
@@ -270,6 +317,27 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             }
         });
 
+        txtPersonID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPersonIDKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPersonIDKeyReleased(evt);
+            }
+        });
+
+        txtTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTitleKeyReleased(evt);
+            }
+        });
+
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -376,19 +444,11 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-        ResetTXT();
-         
-        rdbTatCa.setSelected(true);
-        
         loadPC();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void rdbTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbTatCaActionPerformed
         // TODO add your handling code here:
-        ResetTXT();
-         
-        rdbTatCa.setSelected(true);
-        
         loadPC();
     }//GEN-LAST:event_rdbTatCaActionPerformed
 
@@ -449,25 +509,28 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
     private void txtCourseIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCourseIDKeyReleased
         // TODO add your handling code here:
-        loadPC();
-        String CourseID_str = txtCourseID.getText();
-        for(int i = 0; i< modelPC.getRowCount();i++){
-            
-            if (!jTable_PhanCong.getValueAt(i, 0).toString().contains(CourseID_str)){
-                if(rdbTatCa.isSelected()){
-                    
-                }
-                else if (rdbChua.isSelected()){
-                    
-                }
-                else if (rdbDa.isSelected()){
-                    
-                }
-                modelPC.removeRow(i);
-                i--;
-            }
-        }
+        SearchWith();
     }//GEN-LAST:event_txtCourseIDKeyReleased
+
+    private void txtTitleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTitleKeyReleased
+        // TODO add your handling code here:
+        SearchWith();
+    }//GEN-LAST:event_txtTitleKeyReleased
+
+    private void txtPersonIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPersonIDKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPersonIDKeyPressed
+
+    private void txtPersonIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPersonIDKeyReleased
+        // TODO add your handling code here:
+        SearchWith();
+    }//GEN-LAST:event_txtPersonIDKeyReleased
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        // TODO add your handling code here:
+        SearchWith();
+        
+    }//GEN-LAST:event_txtNameKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

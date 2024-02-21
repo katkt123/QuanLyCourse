@@ -276,10 +276,20 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPersonID">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPersonIDKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPersonIDKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTitle">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTitleKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtName">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
