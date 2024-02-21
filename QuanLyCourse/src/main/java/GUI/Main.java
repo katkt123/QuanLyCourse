@@ -59,7 +59,7 @@ public class Main extends javax.swing.JFrame {
         if (path == "") {
             btn.setIcon(null);
         } else {
-            String imagePath = "C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\"+path; // 
+            String imagePath = "src\\main\\java\\Image\\"+path; // 
             ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
             btn.setIcon(icon);
         }
