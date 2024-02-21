@@ -5,6 +5,7 @@
 package DAL;
 
 import DTO.GiangVienDTO;
+import DTO.KhoaHocDTO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -12,27 +13,24 @@ import java.util.ArrayList;
  *
  * @author DELL
  */
-public class GiangVienDAL {
+public class KhoaHocDAL {
     private KetNoiPHP conn; 
     
-    public GiangVienDAL(){
+    public KhoaHocDAL(){
         conn = new KetNoiPHP();
     }
-    public ArrayList<GiangVienDTO> getListGV(){
-        ArrayList<GiangVienDTO> List = new ArrayList<>();
+    public ArrayList<KhoaHocDTO> getListKH(){
+        ArrayList<KhoaHocDTO> List = new ArrayList<>();
         ResultSet rs = null;
-        String query = "Select PersonID,FirstName,LastName,HireDate From person";
+        String query = "Select CourseID,Title,Credits,DepartmentID From course";
         try {
             rs = this.conn.getState().executeQuery(query);
             while(rs.next()){
-                if(rs.getString(4) != null){
-                    List.add(new GiangVienDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
-                }
+                List.add(new KhoaHocDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return List;
     }
-
 }

@@ -62,6 +62,7 @@ public class SinhVienGUI extends javax.swing.JPanel {
         for (int i = 0; i < jTable_SinhVien.getColumnCount(); i++) {
             jTable_SinhVien.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
+        
         loadSV();
         
     }
@@ -112,7 +113,6 @@ public class SinhVienGUI extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton_Add.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_Add.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Add.png")); // NOI18N
         jButton_Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_AddActionPerformed(evt);
@@ -121,7 +121,6 @@ public class SinhVienGUI extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Search.png")); // NOI18N
         jLabel1.setText("jLabel1");
         jLabel1.setMaximumSize(new java.awt.Dimension(32, 32));
         jLabel1.setMinimumSize(new java.awt.Dimension(24, 24));
@@ -134,6 +133,11 @@ public class SinhVienGUI extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField_SearchFocusLost(evt);
+            }
+        });
+        jTextField_Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_SearchActionPerformed(evt);
             }
         });
         jTextField_Search.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -163,14 +167,12 @@ public class SinhVienGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton_Edit.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Edit.png")); // NOI18N
         jButton_Edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_EditActionPerformed(evt);
             }
         });
 
-        jButton_Refresh.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Refresh.png")); // NOI18N
         jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_RefreshActionPerformed(evt);
@@ -321,6 +323,10 @@ public class SinhVienGUI extends javax.swing.JPanel {
                     jTextField_Search.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_jTextField_SearchFocusLost
+
+    private void jTextField_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_SearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
