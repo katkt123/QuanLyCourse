@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -18,15 +19,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PhanCongGiangDay extends javax.swing.JPanel {
     
-    private KhoaHocBLL khoaHocBLL;
+    private KhoaHocBLL khoaHocBLL = new KhoaHocBLL();
     
-    private ArrayList<KhoaHocDTO> listKH;
+    private ArrayList<KhoaHocDTO> listKH = new ArrayList<>();
     
     DefaultTableModel modelPC = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
         }
+        
+       
     };
     
 
@@ -37,29 +40,50 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         initComponents();
         
         jTable_PhanCong.setModel(modelPC);
-//        
-//        modelPC.addColumn("CourseID");
-//        modelPC.addColumn("Title");
-//        modelPC.addColumn("Credits");
-//        modelPC.addColumn("DepartmentID");
-//        modelPC.addColumn("Action");
+
         
-//        
-//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-//        headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
-//        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER); // Set center alignment
-//        
-//        for (int i = 0; i < jTable_PhanCong.getColumnCount(); i++) {
-//            jTable_PhanCong.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-//        }
-//        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-//        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
-//        
-//        for (int i = 0; i < jTable_PhanCong.getColumnCount(); i++) {
-//            jTable_PhanCong.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-//        }
+        modelPC.addColumn("CourseID");
+        modelPC.addColumn("Title");
+        modelPC.addColumn("Credits");
+        modelPC.addColumn("DepartmentID");
+        modelPC.addColumn("Action");
         
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
+        headerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER); // Set center alignment
         
+        for (int i = 0; i < jTable_PhanCong.getColumnCount(); i++) {
+            jTable_PhanCong.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Set center alignment
+        
+        for (int i = 0; i < jTable_PhanCong.getColumnCount(); i++) {
+            jTable_PhanCong.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+        
+      
+        loadPC();
+              
+    
+    }
+    
+     public void loadPC(){
+        listKH = khoaHocBLL.getListKH();
+        
+        modelPC.setRowCount(0);
+
+        for(int i = 0; i<listKH.size();i++){
+            KhoaHocDTO em= listKH.get(i);
+            int id= em.getCoureID();
+            String title = em.getTitle();
+            int credits = em.getCredits();
+            int department = em.getDepartmentID();
+            
+        
+            Object[] row = {id,title,credits,department};
+            modelPC.addRow(row);
+        }
     }
 
     /**
@@ -71,6 +95,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         panel2 = new java.awt.Panel();
         panel1 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
@@ -87,6 +112,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jTable_PhanCong = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -132,12 +158,15 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButton2.setText("Tất cả");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButton1.setText("Chưa phân công");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButton3.setText("Đã phân công");
 
@@ -177,7 +206,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,23 +252,31 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jTable_PhanCong.setGridColor(new java.awt.Color(204, 204, 204));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable_PhanCong.setRowHeight(50);
+        jScrollPane1.setViewportView(jTable_PhanCong);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTable_PhanCong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTable_PhanCong, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -249,6 +286,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
@@ -260,6 +298,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_PhanCong;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
