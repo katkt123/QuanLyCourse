@@ -5,6 +5,8 @@
 package GUI;
 
 import BLL.KhoaHocBLL;
+import BLL.PhanCongBLL;
+import DTO.HienThiPhanCongDTO;
 import DTO.KhoaHocDTO;
 import GUI_Custom_Table_PC.TableActionCellEditor;
 import GUI_Custom_Table_PC.TableActionCellRender;
@@ -25,7 +27,9 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     
     private KhoaHocBLL khoaHocBLL = new KhoaHocBLL();
     
-    private ArrayList<KhoaHocDTO> listKH = new ArrayList<>();
+    private PhanCongBLL phanCongBLL = new PhanCongBLL();
+    
+    private ArrayList<HienThiPhanCongDTO> listHTPC = new ArrayList<>();
     
     DefaultTableModel modelPC = new DefaultTableModel() {
         @Override
@@ -51,8 +55,8 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         
         modelPC.addColumn("CourseID");
         modelPC.addColumn("Title");
-        modelPC.addColumn("Credits");
-        modelPC.addColumn("DepartmentID");
+        modelPC.addColumn("PersonID");
+        modelPC.addColumn("Name");
         modelPC.addColumn("Action");
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
@@ -70,6 +74,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         }
         
         CustomActionButton();
+        
+        ResetTXT();
+         
+        rdbTatCa.setSelected(true);
       
         loadPC();
               
@@ -77,20 +85,29 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     }
     
      public void loadPC(){
-        listKH = khoaHocBLL.getListKH();
+         
+        // Thực hiện lấy dữ liệu
+        listHTPC = phanCongBLL.getListHienThiPhanCong();
         
+        // Xóa các hàng đã có
         modelPC.setRowCount(0);
 
-        for(int i = 0; i<listKH.size();i++){
-            KhoaHocDTO em= listKH.get(i);
-            int id= em.getCoureID();
+        for(int i = 0; i< listHTPC.size();i++){
+            HienThiPhanCongDTO em= listHTPC.get(i);
+            int CourseID = em.getCourseID();
             String title = em.getTitle();
-            int credits = em.getCredits();
-            int department = em.getDepartmentID();
+            int PersonID = em.getPersonID();
+            String Name = em.getName();
             
-        
-            Object[] row = {id,title,credits,department};
-            modelPC.addRow(row);
+            if (PersonID != 0){
+                Object[] row = {CourseID,title, PersonID, Name};
+                modelPC.addRow(row);
+            }
+            else{
+                Object[] row = {CourseID,title," ", Name};
+                modelPC.addRow(row);
+            }
+            
         }
     }
      
@@ -118,6 +135,14 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         // Hành động
         jTable_PhanCong.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
+    
+    public void ResetTXT(){
+        txtCourseID.setText("");
+        txtName.setText("");
+        txtTitle.setText("");
+        txtPersonID.setText("");
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,7 +153,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        rdbGroup = new javax.swing.ButtonGroup();
         panel2 = new java.awt.Panel();
         panel1 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
@@ -137,14 +162,14 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        rdbTatCa = new javax.swing.JRadioButton();
+        rdbChua = new javax.swing.JRadioButton();
+        rdbDa = new javax.swing.JRadioButton();
+        btnRefresh = new javax.swing.JButton();
+        txtCourseID = new javax.swing.JTextField();
+        txtPersonID = new javax.swing.JTextField();
+        txtTitle = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_PhanCong = new javax.swing.JTable();
 
@@ -178,38 +203,70 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("CourseID");
+        jLabel3.setText("CourseID: ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Title");
+        jLabel4.setText("Title: ");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Credits");
+        jLabel5.setText("PersonID: ");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("DepartmentName");
+        jLabel6.setText("Name: ");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jRadioButton2.setText("Tất cả");
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jRadioButton1.setText("Chưa phân công");
-
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jRadioButton3.setText("Đã phân công");
-
-        jButton1.setBackground(new java.awt.Color(0, 155, 155));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\Study_In_University\\nam3\\HocKy2\\XayDungPhanMemTheoMoHinhPhanLop\\DoAn\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\Refresh.png")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        rdbGroup.add(rdbTatCa);
+        rdbTatCa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdbTatCa.setText("Tất cả");
+        rdbTatCa.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rdbTatCaStateChanged(evt);
+            }
+        });
+        rdbTatCa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                rdbTatCaActionPerformed(evt);
+            }
+        });
+
+        rdbGroup.add(rdbChua);
+        rdbChua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdbChua.setText("Chưa phân công");
+        rdbChua.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rdbChuaStateChanged(evt);
+            }
+        });
+        rdbChua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbChuaActionPerformed(evt);
+            }
+        });
+
+        rdbGroup.add(rdbDa);
+        rdbDa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rdbDa.setText("Đã phân công");
+        rdbDa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbDaActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setBackground(new java.awt.Color(0, 155, 155));
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setIcon(new javax.swing.ImageIcon("D:\\Study_In_University\\nam3\\HocKy2\\XayDungPhanMemTheoMoHinhPhanLop\\DoAn\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\refresh_pc.png")); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        txtCourseID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCourseIDKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCourseIDKeyReleased(evt);
             }
         });
 
@@ -224,53 +281,57 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                    .addComponent(txtCourseID)
+                    .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                 .addGap(70, 70, 70)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox4, 0, 191, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addGap(18, 18, 18)
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(panel2Layout.createSequentialGroup()
+                        .addComponent(rdbTatCa)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panel2Layout.createSequentialGroup()
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdbDa)
+                            .addComponent(rdbChua))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
             .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rdbTatCa)
+                        .addGap(0, 0, 0)
+                        .addComponent(rdbChua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdbDa))
+                    .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnRefresh)
+                        .addGroup(panel2Layout.createSequentialGroup()
                             .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel5)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton2)
-                        .addGap(0, 0, 0)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                                .addComponent(txtCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel4)
+                                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTable_PhanCong.setAutoCreateRowSorter(true);
@@ -309,34 +370,125 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ResetTXT();
+         
+        rdbTatCa.setSelected(true);
+        
+        loadPC();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void rdbTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbTatCaActionPerformed
+        // TODO add your handling code here:
+        ResetTXT();
+         
+        rdbTatCa.setSelected(true);
+        
+        loadPC();
+    }//GEN-LAST:event_rdbTatCaActionPerformed
+
+    private void rdbChuaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbChuaStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_rdbChuaStateChanged
+
+    private void rdbTatCaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rdbTatCaStateChanged
+       
+    }//GEN-LAST:event_rdbTatCaStateChanged
+
+    private void rdbChuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbChuaActionPerformed
+        // TODO add your handling code here:
+        ResetTXT();
+        //Xóa các hàng đã có
+        modelPC.setRowCount(0);
+
+        for(int i = 0; i< listHTPC.size();i++){
+            HienThiPhanCongDTO em= listHTPC.get(i);
+            int CourseID = em.getCourseID();
+            String title = em.getTitle();
+            int PersonID = em.getPersonID();
+            String Name = em.getName();
+            
+            if (PersonID == 0){
+                Object[] row = {CourseID,title," ", Name};
+                modelPC.addRow(row);
+            }
+
+        }
+    }//GEN-LAST:event_rdbChuaActionPerformed
+
+    private void rdbDaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbDaActionPerformed
+        // TODO add your handling code here:
+        ResetTXT();
+        //Xóa các hàng đã có
+        modelPC.setRowCount(0);
+
+        for(int i = 0; i< listHTPC.size();i++){
+            HienThiPhanCongDTO em= listHTPC.get(i);
+            int CourseID = em.getCourseID();
+            String title = em.getTitle();
+            int PersonID = em.getPersonID();
+            String Name = em.getName();
+            
+            if (PersonID != 0){
+                Object[] row = {CourseID,title,PersonID, Name};
+                modelPC.addRow(row);
+            }
+
+        }
+    }//GEN-LAST:event_rdbDaActionPerformed
+
+    private void txtCourseIDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCourseIDKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCourseIDKeyPressed
+
+    private void txtCourseIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCourseIDKeyReleased
+        // TODO add your handling code here:
+        loadPC();
+        String CourseID_str = txtCourseID.getText();
+        for(int i = 0; i< modelPC.getRowCount();i++){
+            
+            if (!jTable_PhanCong.getValueAt(i, 0).toString().contains(CourseID_str)){
+                if(rdbTatCa.isSelected()){
+                    
+                }
+                else if (rdbChua.isSelected()){
+                    
+                }
+                else if (rdbDa.isSelected()){
+                    
+                }
+                modelPC.removeRow(i);
+                i--;
+            }
+        }
+    }//GEN-LAST:event_txtCourseIDKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_PhanCong;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
+    private javax.swing.JRadioButton rdbChua;
+    private javax.swing.JRadioButton rdbDa;
+    private javax.swing.ButtonGroup rdbGroup;
+    private javax.swing.JRadioButton rdbTatCa;
+    private javax.swing.JTextField txtCourseID;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPersonID;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
