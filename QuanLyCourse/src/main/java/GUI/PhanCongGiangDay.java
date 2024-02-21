@@ -6,8 +6,12 @@ package GUI;
 
 import BLL.KhoaHocBLL;
 import DTO.KhoaHocDTO;
+import GUI_Custom_Table_PC.TableActionCellEditor;
+import GUI_Custom_Table_PC.TableActionCellRender;
+import GUI_Custom_Table_PC.TableActionEvent;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +30,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     DefaultTableModel modelPC = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
+            if (column != 4){
+                return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
+            }
+            return true;
         }
         
        
@@ -62,6 +69,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             jTable_PhanCong.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
         
+        CustomActionButton();
       
         loadPC();
               
@@ -84,6 +92,31 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             Object[] row = {id,title,credits,department};
             modelPC.addRow(row);
         }
+    }
+     
+    public void CustomActionButton(){
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onAdd(int row) {
+                System.out.println("Them");
+                JOptionPane.showMessageDialog(panel2, "Theem");
+            }
+
+            @Override
+            public void onEdit(int row) {
+                JOptionPane.showMessageDialog(panel2, "Sua");
+            }
+
+            @Override
+            public void onDelete(int row) {
+                JOptionPane.showMessageDialog(panel2, "Xoa");
+            }
+        };
+        
+        // Hiển thị
+        jTable_PhanCong.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+        // Hành động
+        jTable_PhanCong.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
     }
 
     /**
@@ -244,17 +277,17 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         jTable_PhanCong.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTable_PhanCong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
