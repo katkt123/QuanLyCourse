@@ -28,12 +28,14 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
         txtCourseID.setEditable(false);
         txtTitle.setEditable(false);
         list = gv.getList();
-        cbPersonID.removeAllItems();
-        cbName.removeAllItems();
         for (GiangVienDTO a : list) {
-            cbPersonID.addItem(Integer.toString(a.getPersonID()));
             cbName.addItem(a.getFirstName()+a.getLastName());
+            cbPersonID.addItem(Integer.toString(a.getPersonID()));
+            
         }
+        cbPersonID.removeItemAt(0);
+        cbName.removeItemAt(0);
+       
     }
 
     /**
@@ -80,9 +82,19 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
         BtnXN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BtnXN.setText("Xác nhận");
 
-        cbPersonID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbPersonID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbPersonID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPersonIDActionPerformed(evt);
+            }
+        });
 
-        cbName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,6 +158,19 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cbPersonIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPersonIDActionPerformed
+        // TODO add your handling code here:
+        //int ID = (int) cbPersonID.getSelectedItem();
+        int SeletedID = cbPersonID.getSelectedIndex();
+        cbName.setSelectedIndex(SeletedID);
+    }//GEN-LAST:event_cbPersonIDActionPerformed
+
+    private void cbNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNameActionPerformed
+        // TODO add your handling code here:
+        int SeletedName = cbName.getSelectedIndex();
+        cbPersonID.setSelectedIndex(SeletedName);
+    }//GEN-LAST:event_cbNameActionPerformed
 
     /**
      * @param args the command line arguments

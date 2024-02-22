@@ -121,13 +121,16 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onAdd(int row) {
-                System.out.println("Them");
-                JOptionPane.showMessageDialog(panel2, "Theem");
+                int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
+                tgv.setVisible(true);
+                        
             }
 
             @Override
             public void onEdit(int row) {
-                JOptionPane.showMessageDialog(panel2, "Sua");
+                
             }
 
             @Override
