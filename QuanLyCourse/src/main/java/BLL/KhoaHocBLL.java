@@ -22,5 +22,8 @@ public class KhoaHocBLL {
         khocHocDAL.addCourse(kh);
     }
 
+    public int initID(){
+        return khocHocDAL.initID();
+    }
 }
 

@@ -12,6 +12,10 @@ public class KhoaHocDTO {
     private int CoureID, Credits, DepartmentID;
     private String Title;
 
+    public KhoaHocDTO(){
+        
+    }
+    
     public KhoaHocDTO(int CoureID, String Title, int Credits, int DepartmentID) {
         this.CoureID = CoureID;
         this.Credits = Credits;

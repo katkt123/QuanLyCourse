@@ -49,4 +49,19 @@ public class KhoaHocDAL {
             Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public int initID(){
+        int id= 0;
+        String query = "Select Count(*) From course";
+        ResultSet rs = null;
+        try {
+            rs = this.conn.getState().executeQuery(query);
+            while(rs.next()){
+                id = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Init Sinh Vien :  "+e);
+        }
+        return id;
+    }
 }
