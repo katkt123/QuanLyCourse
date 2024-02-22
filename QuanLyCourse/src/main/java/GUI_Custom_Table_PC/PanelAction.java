@@ -26,7 +26,7 @@ public class PanelAction extends javax.swing.JPanel {
     }
     
     public void setIconAdd(){
-        String imagePath = "src\\main\\java\\GUI_Custom_Table_PC\\add.png"; // 
+        String imagePath = "src\\main\\java\\GUI_Custom_Table_PC\\Add_PC.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         btnAdd.setIcon(icon);
     }
@@ -36,7 +36,7 @@ public class PanelAction extends javax.swing.JPanel {
         btnEdit.setIcon(icon);
     }
     public void setIconDelete(){
-        String imagePath = "src\\main\\java\\GUI_Custom_Table_PC\\delete.png"; // 
+        String imagePath = "src\\main\\java\\GUI_Custom_Table_PC\\Delete_PC.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
         btnDelete.setIcon(icon);
     }

@@ -37,28 +37,13 @@
   </Layout>
   <SubComponents>
     <Component class="GUI_Custom_Table_PC.ActionButton" name="btnAdd">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon1\QuanLyCourse\src\main\java\GUI_Custom_Table_PC\add.png"/>
-        </Property>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
       </Events>
     </Component>
     <Component class="GUI_Custom_Table_PC.ActionButton" name="btnEdit">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon1\QuanLyCourse\src\main\java\GUI_Custom_Table_PC\edit.png"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="GUI_Custom_Table_PC.ActionButton" name="btnDelete">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\SGU\Nam3_HK2\MoHinhPhanLop\BaiTapLon1\QuanLyCourse\src\main\java\GUI_Custom_Table_PC\delete.png"/>
-        </Property>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

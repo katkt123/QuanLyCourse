@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.RootPaneUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -131,7 +132,14 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
             @Override
             public void onDelete(int row) {
-                JOptionPane.showMessageDialog(panel2, "Xoa");
+                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
+                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
+                String Name = jTable_PhanCong.getValueAt(row, 3).toString();
+                if(JOptionPane.showConfirmDialog(jScrollPane1, "Bạn có muốn xóa phân công cho khóa học " + Title + " cho giảng viên " + Name, Title, WIDTH) == JOptionPane.YES_OPTION){
+                    
+                }
+               
             }
         };
         
