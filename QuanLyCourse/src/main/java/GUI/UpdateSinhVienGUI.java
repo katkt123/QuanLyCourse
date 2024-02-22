@@ -22,6 +22,7 @@ public class UpdateSinhVienGUI extends javax.swing.JFrame {
      */
     public UpdateSinhVienGUI(int pid,String fn,String ln,String ed) {
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(Main.DISPOSE_ON_CLOSE);
         jLabel1.setHorizontalAlignment(jLabel1.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel2.setHorizontalAlignment(jLabel2.CENTER); // Đưa chữ về giữa theo chiều ngang

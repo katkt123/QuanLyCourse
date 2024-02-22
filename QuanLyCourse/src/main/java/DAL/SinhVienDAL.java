@@ -74,7 +74,7 @@ public class SinhVienDAL {
         ResultSet rs = null;
 
         try {
-            String query = "SELECT PersonID,LastName,FirstName,EnrollmentDate FROM person WHERE FirstName LIKE '%" + s + "%' OR LastName LIKE '%" + s + "%' OR PersonID LIKE '%"+ s +"%' OR EnrollmentDate LIKE '%" + s + "%';";
+            String query = "SELECT PersonID,LastName,FirstName,EnrollmentDate FROM person WHERE FirstName LIKE N'%" + s + "%' OR LastName LIKE N'%" + s + "%' OR PersonID LIKE '%"+ s +"%' OR EnrollmentDate LIKE '%" + s + "%';";
             rs = this.conn.getState().executeQuery(query);
 
             while (rs.next()) {

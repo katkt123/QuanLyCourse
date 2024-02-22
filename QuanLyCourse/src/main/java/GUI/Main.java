@@ -34,11 +34,12 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         toolsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        setLocationRelativeTo(null);
         addComponent("Khóa Học",new SinhVienGUI(),"Course.png");
         addComponent("Sinh Viên",new SinhVienGUI(),"Student.png");
         addComponent("Giảng Viên",new GiangVienGUI(),"Teacher.png");
         addComponent("Khoa",new SinhVienGUI(),"Faculty.png");
-        addComponent("Phân Công",new SinhVienGUI(),"Pen.png");
+        addComponent("Phân Công",new PhanCongGiangDay(),"Pen.png");
         addComponent("Nhập Điểm",new SinhVienGUI(),"Score.png");
         Event();
         
@@ -59,7 +60,7 @@ public class Main extends javax.swing.JFrame {
         if (path == "") {
             btn.setIcon(null);
         } else {
-            String imagePath = "C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\QuanLyCourse\\QuanLyCourse\\src\\main\\java\\Image\\"+path; // 
+            String imagePath = "src\\main\\java\\Image\\"+path; // 
             ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
             btn.setIcon(icon);
         }
