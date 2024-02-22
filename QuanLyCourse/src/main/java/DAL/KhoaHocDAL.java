@@ -7,7 +7,10 @@ package DAL;
 import DTO.GiangVienDTO;
 import DTO.KhoaHocDTO;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,5 +35,18 @@ public class KhoaHocDAL {
             e.printStackTrace();
         }
         return List;
+    }
+    public void addCourse(KhoaHocDTO course) {
+         String sql = "INSERT INTO Course VALUES (";
+                sql += "'"+course.getCoureID()+"',";
+                sql += "'"+course.getTitle()+"',";
+                sql += "'"+course.getDepartmentID()+"',";
+                sql += "'"+course.getCredits()+"')";
+         System.out.println(sql);
+        try {
+            this.conn.getState().executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

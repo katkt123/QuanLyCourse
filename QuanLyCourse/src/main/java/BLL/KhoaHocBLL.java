@@ -18,4 +18,9 @@ public class KhoaHocBLL {
     public ArrayList<KhoaHocDTO> getListKH(){
         return khocHocDAL.getListKH();
     }
+    public void addKhoaHoc(KhoaHocDTO kh){
+        khocHocDAL.addCourse(kh);
+    }
+
 }
+
