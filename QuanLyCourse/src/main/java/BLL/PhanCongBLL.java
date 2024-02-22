@@ -6,7 +6,7 @@ package BLL;
 
 import DAL.PhanCongDAL;
 import DTO.GiangVienDTO;
-import DTO.HienThiPhanCongDTO;
+import DTO.PhanCongDTO;
 import DTO.KhoaHocDTO;
 import java.util.ArrayList;
 
@@ -15,11 +15,18 @@ import java.util.ArrayList;
  * @author DELL
  */
 public class PhanCongBLL {
-    PhanCongDAL phanCongBLL = new PhanCongDAL();
-    ArrayList<HienThiPhanCongDTO> listHTPC = new ArrayList<>();
+    PhanCongDAL phanCongDAL = new PhanCongDAL();
+    ArrayList<PhanCongDTO> listHTPC = new ArrayList<>();
     
-    public ArrayList<HienThiPhanCongDTO> getListHienThiPhanCong(){
-        return phanCongBLL.getListHienThi();
+    public ArrayList<PhanCongDTO> getListHienThiPhanCong(){
+        return phanCongDAL.getListHienThi();
+    }
+    
+    public String XoaPhanCong(int CourseID, int PersonID){
+        if (phanCongDAL.XoaPhanCong(CourseID, PersonID)){
+            return "Xóa phân công thành công";
+        }
+        return "Xóa phân công thất bại :((";
     }
     
 }

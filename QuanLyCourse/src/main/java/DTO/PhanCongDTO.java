@@ -10,11 +10,21 @@ package DTO;
  */
 public class PhanCongDTO {
     private int CourseID, PersonID;
+    private String Title, Name;
+
+    public PhanCongDTO(int CourseID, String Title, int PersonID, String Name) {
+        this.CourseID = CourseID;
+        this.PersonID = PersonID;
+        this.Title = Title;
+        this.Name = Name;
+    }
 
     public PhanCongDTO(int CourseID, int PersonID) {
         this.CourseID = CourseID;
         this.PersonID = PersonID;
     }
+    
+    
 
     public int getCourseID() {
         return CourseID;
@@ -31,8 +41,22 @@ public class PhanCongDTO {
     public void setPersonID(int PersonID) {
         this.PersonID = PersonID;
     }
-    
-    
 
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String Title) {
+        this.Title = Title;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+    
     
 }

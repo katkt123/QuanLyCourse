@@ -4,8 +4,9 @@
  */
 package DAL;
 
-import DTO.HienThiPhanCongDTO;
 import DTO.PhanCongDTO;
+import DTO.PhanCongDTO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -37,8 +38,8 @@ public class PhanCongDAL {
         return List;
     }
     
-    public ArrayList<HienThiPhanCongDTO> getListHienThi(){
-        ArrayList<HienThiPhanCongDTO> List = new ArrayList<>();
+    public ArrayList<PhanCongDTO> getListHienThi(){
+        ArrayList<PhanCongDTO> List = new ArrayList<>();
         ResultSet rs = null;
         String query = "SELECT course.CourseID, Title, person.PersonID, CONCAT_WS(\"  \",person.Lastname,person.Firstname) AS 'Name'\n" +
         "FROM course\n" +
@@ -49,7 +50,7 @@ public class PhanCongDAL {
         try {
             rs = this.conn.getState().executeQuery(query);
             while(rs.next()){
-                List.add(new HienThiPhanCongDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+                List.add(new PhanCongDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +62,51 @@ public class PhanCongDAL {
         
         return false;
     }
+    
+    public boolean ThemPhanCong(int CourseID, int PersonID){
+        String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?, ?);";
+        try {
+            PreparedStatement ps = conn.getConn().prepareCall(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, PersonID);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    public boolean SuaPhanCong(int CourseID, int PersonID){
+        String sql = "UPDATE courseinstructor SET PersonID = ? WHERE CourseID = ?;";
+        try {
+            PreparedStatement ps = conn.getConn().prepareCall(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, PersonID);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    
+    public boolean XoaPhanCong(int CourseID, int PersonID){
+        String sql = "DELETE FROM courseinstructor WHERE CourseID = ? AND PersonID = ?";
+        try {
+            PreparedStatement ps = conn.getConn().prepareCall(sql);
+            ps.setInt(1, CourseID);
+            ps.setInt(2, PersonID);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    
             
             
 }

@@ -6,7 +6,7 @@ package GUI;
 
 import BLL.KhoaHocBLL;
 import BLL.PhanCongBLL;
-import DTO.HienThiPhanCongDTO;
+import DTO.PhanCongDTO;
 import DTO.KhoaHocDTO;
 import GUI_Custom_Table_PC.TableActionCellEditor;
 import GUI_Custom_Table_PC.TableActionCellRender;
@@ -32,7 +32,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     
     private PhanCongBLL phanCongBLL = new PhanCongBLL();
     
-    private ArrayList<HienThiPhanCongDTO> listHTPC = new ArrayList<>();
+    private ArrayList<PhanCongDTO> listHTPC = new ArrayList<>();
     
     DefaultTableModel modelPC = new DefaultTableModel() {
         @Override
@@ -99,7 +99,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         modelPC.setRowCount(0);
 
         for(int i = 0; i< listHTPC.size();i++){
-            HienThiPhanCongDTO em= listHTPC.get(i);
+            PhanCongDTO em= listHTPC.get(i);
             int CourseID = em.getCourseID();
             String title = em.getTitle();
             int PersonID = em.getPersonID();
@@ -121,12 +121,15 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onAdd(int row) {
-                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
-                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
-                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
+                
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
-                if (PersonID.equals(" ")){
-                    ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(Integer.parseInt(CourseID),Title);
+                
+                if (Name.isEmpty()){
+                    
+                    int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                    String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                    
+                    ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
                     tgv.setVisible(true);
                 }
                 else{
@@ -136,29 +139,34 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
             @Override
             public void onEdit(int row) {
-                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
-                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
-                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
-                if (PersonID.equals(" ")){
+                
+                if(Name.isEmpty()){
                     JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
                 }
                 else{
-                    
+                    int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                    String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                    int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
                 }
             }
 
             @Override
             public void onDelete(int row) {
-                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
-                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
-                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
-                if (PersonID.equals(" ")){
+                
+                if(Name.isEmpty()){
                     JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
                 }
                 else{
+                    int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                    String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                    int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
                     
+                    if (JOptionPane.showConfirmDialog(jScrollPane1, "Bạn có chắc muốn xóa phân công của khóa học " + Title + " không ?") == JOptionPane.YES_OPTION){
+                        JOptionPane.showMessageDialog(jScrollPane1, phanCongBLL.XoaPhanCong(CourseID, PersonID));
+                        loadPC();
+                    }
                 }
                
             }
@@ -191,7 +199,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         //Lọc
         for(int i = 0; i < listHTPC.size();i++){
             
-            HienThiPhanCongDTO em= listHTPC.get(i);
+            PhanCongDTO em= listHTPC.get(i);
             int CourseID = em.getCourseID();
             String title = em.getTitle();
             int PersonID = em.getPersonID();
@@ -502,7 +510,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         modelPC.setRowCount(0);
 
         for(int i = 0; i< listHTPC.size();i++){
-            HienThiPhanCongDTO em= listHTPC.get(i);
+            PhanCongDTO em= listHTPC.get(i);
             int CourseID = em.getCourseID();
             String title = em.getTitle();
             int PersonID = em.getPersonID();
@@ -523,7 +531,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         modelPC.setRowCount(0);
 
         for(int i = 0; i< listHTPC.size();i++){
-            HienThiPhanCongDTO em= listHTPC.get(i);
+            PhanCongDTO em= listHTPC.get(i);
             int CourseID = em.getCourseID();
             String title = em.getTitle();
             int PersonID = em.getPersonID();
