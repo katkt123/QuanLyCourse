@@ -21,6 +21,18 @@ public class PhanCongBLL {
     public ArrayList<PhanCongDTO> getListHienThiPhanCong(){
         return phanCongDAL.getListHienThi();
     }
+    public String ThemPhanCong(int CourseID, int PersonID){
+        if (phanCongDAL.ThemPhanCong(CourseID, PersonID)){
+            return "Thêm phân công thành công";
+        }
+        return "Thêm phân công thất bại :((";
+    }
+    public String SuaPhanCong(int CourseID, int PersonID){
+        if (phanCongDAL.SuaPhanCong(CourseID, PersonID)){
+            return "Sửa phân công thành công";
+        }
+        return "Sửa phân công thất bại :((";
+    }
     
     public String XoaPhanCong(int CourseID, int PersonID){
         if (phanCongDAL.XoaPhanCong(CourseID, PersonID)){
