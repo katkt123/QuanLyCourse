@@ -67,6 +67,7 @@ public class SinhVienGUI extends javax.swing.JPanel {
         setIconAdd();
         setIconEdit();
         setIconRefresh();
+        setIconSearch();
         loadSV();
         
     }

@@ -35,7 +35,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         toolsPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setLocationRelativeTo(null);
-        addComponent("Khóa Học",new SinhVienGUI(),"Course.png");
+        addComponent("Khóa Học",new KhoaHocGUI(),"Course.png");
         addComponent("Sinh Viên",new SinhVienGUI(),"Student.png");
         addComponent("Giảng Viên",new GiangVienGUI(),"Teacher.png");
         addComponent("Khoa",new SinhVienGUI(),"Faculty.png");

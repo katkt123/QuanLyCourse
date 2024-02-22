@@ -12,6 +12,7 @@ GUI\Main$2.class
 GUI_Custom_Table_PC\PanelAction$2.class
 GUI\SinhVienGUI$2.class
 GUI\PhanCongGiangDay$7.class
+GUI\KhoaHocGUI.class
 GUI\SinhVienGUI$6.class
 GUI_Custom_Table_PC\ActionButton$1.class
 DAL\SinhVienDAL.class
