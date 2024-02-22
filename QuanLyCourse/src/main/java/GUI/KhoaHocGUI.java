@@ -15,6 +15,24 @@ public class KhoaHocGUI extends javax.swing.JPanel {
      */
     public KhoaHocGUI() {
         initComponents();
+        
+        
+        jTable_SinhVien.setAutoCreateRowSorter(true);
+        jTable_SinhVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jTable_SinhVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable_SinhVien.setGridColor(new java.awt.Color(204, 204, 204));
+        jTable_SinhVien.setRowHeight(50);
+        jScrollPane1.setViewportView(jTable_SinhVien);
     }
 
     /**
@@ -26,19 +44,44 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_SinhVien = new javax.swing.JTable();
+
+        jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setRowHeaderView(null);
+
+        jTable_SinhVien.setAutoCreateRowSorter(true);
+        jTable_SinhVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jTable_SinhVien.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable_SinhVien.setGridColor(new java.awt.Color(204, 204, 204));
+        jTable_SinhVien.setRowHeight(50);
+        jScrollPane1.setViewportView(jTable_SinhVien);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable_SinhVien;
     // End of variables declaration//GEN-END:variables
 }

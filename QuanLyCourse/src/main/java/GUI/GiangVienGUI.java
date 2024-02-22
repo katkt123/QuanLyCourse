@@ -14,7 +14,7 @@ public class GiangVienGUI extends javax.swing.JPanel {
      * Creates new form GiangVienGUI
      */
     public GiangVienGUI() {
-        initComponents();
+        initComponents(); 
     }
 
     /**
