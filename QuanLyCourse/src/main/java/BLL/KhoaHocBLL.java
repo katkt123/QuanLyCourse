@@ -21,6 +21,9 @@ public class KhoaHocBLL {
     public void addKhoaHoc(KhoaHocDTO kh){
         khocHocDAL.addCourse(kh);
     }
+    public void setKhoaHoc(KhoaHocDTO kh){
+        khocHocDAL.setCourse(kh);
+    }
 
     public int initID(){
         return khocHocDAL.initID();

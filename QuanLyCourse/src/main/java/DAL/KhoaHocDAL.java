@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,10 +45,24 @@ public class KhoaHocDAL {
                 sql += "'"+course.getCredits()+"')";
          System.out.println(sql);
         try {
-            this.conn.getState().executeQuery(sql);
+            this.conn.getState().executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void setCourse(KhoaHocDTO course) {
+        String sql = "UPDATE Course SET ";
+        sql += "Title='"+course.getTitle()+"', ";
+        sql += "DepartmentID="+course.getDepartmentID()+", ";
+        sql += "Credits="+course.getCredits()+" ";
+        sql += " WHERE CourseID="+course.getCoureID();
+        System.out.println(sql);
+        try {
+            this.conn.getState().executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Sửa thành công!");
     }
     
     public int initID(){

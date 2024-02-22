@@ -80,7 +80,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
 
         jButton_ok.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton_ok.setText("OK");
-        jButton_ok.setActionCommand("OK");
         jButton_ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_okActionPerformed(evt);
