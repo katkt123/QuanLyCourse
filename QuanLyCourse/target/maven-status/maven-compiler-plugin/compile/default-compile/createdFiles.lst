@@ -36,6 +36,7 @@ GUI\PhanCongGiangDay$5.class
 BLL\KhoaHocBLL.class
 GUI_Custom_Table_PC\TableActionCellRender.class
 GUI\SinhVienGUI$7.class
+DTO\GiangVienDTO.class
 GUI\Main.class
 DTO\KhoaHocOnlineDTO.class
 GUI\AddSinhVienGUI$3.class
@@ -47,6 +48,7 @@ GUI_Custom_Table_PC\PanelAction$4.class
 GUI\PhanCongGiangDay$2.class
 com\mycompany\quanlycourse\QuanLyCourse.class
 GUI\PhanCongGiangDay$13.class
+BLL\GiangVienBLL.class
 DTO\KhoaHocOnSiteDTO.class
 GUI\UpdateSinhVienGUI$2.class
 GUI\PhanCongGiangDay$11.class
@@ -56,5 +58,6 @@ GUI\Main$1.class
 GUI\PhanCongGiangDay$8.class
 GUI\PhanCongGiangDay.class
 GUI\PhanCongGiangDay$1.class
+DAL\GiangVienDAL.class
 GUI\AddSinhVienGUI$1.class
 GUI_Custom_Table_PC\PanelAction$3.class
