@@ -24,6 +24,15 @@ public class KhoaHocBLL {
     public void setKhoaHoc(KhoaHocDTO kh){
         khocHocDAL.setCourse(kh);
     }
+    public void delKhoaHoc(KhoaHocDTO kh){ // nhập đối tượng DTO
+        khocHocDAL.delete(Integer.toString( kh.getCoureID()));
+    }
+    public void delKhoaHoc(int courseID){  // nhập mã của khóa học dạng int
+        khocHocDAL.delete(Integer.toString( courseID));
+    }
+    public void delKhoaHoc(String courseID){  // nhập mã của khóa học dạng String lấy trực tiếp từ textField
+        khocHocDAL.delete(courseID);
+    }
 
     public int initID(){
         return khocHocDAL.initID();

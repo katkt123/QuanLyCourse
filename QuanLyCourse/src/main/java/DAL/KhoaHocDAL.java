@@ -64,6 +64,17 @@ public class KhoaHocDAL {
         }
         JOptionPane.showMessageDialog(null, "Sửa thành công!");
     }
+    public void delete(String id)
+    {
+        String sql = "DELETE FROM `course` WHERE CourseID ="+id;
+        try {
+            this.conn.getState().executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(sql);
+        JOptionPane.showMessageDialog(null, "Xóa thành công!");
+    }
     
     public int initID(){
         int id= 0;
