@@ -57,5 +57,10 @@ public class PhanCongDAL {
         return List;
     }
     
-    
+    public boolean PhanCongGV(PhanCongDTO gv){
+        
+        return false;
+    }
+            
+            
 }

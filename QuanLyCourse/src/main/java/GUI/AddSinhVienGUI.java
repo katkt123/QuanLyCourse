@@ -65,6 +65,12 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jTextField_FN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_FNActionPerformed(evt);
+            }
+        });
+
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ErollmentDate");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -180,6 +186,10 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton_CreateActionPerformed
+
+    private void jTextField_FNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_FNActionPerformed
 
     /**
      * @param args the command line arguments
