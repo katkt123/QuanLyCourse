@@ -121,16 +121,31 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onAdd(int row) {
-                int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
                 String Title = jTable_PhanCong.getValueAt(row, 1).toString();
-                ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
-                tgv.setVisible(true);
-                        
+                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
+                String Name = jTable_PhanCong.getValueAt(row, 3).toString();
+                if (PersonID.equals(" ")){
+                    ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(Integer.parseInt(CourseID),Title);
+                    tgv.setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học đã được phân công");
+                }
             }
 
             @Override
             public void onEdit(int row) {
-                
+                String CourseID = jTable_PhanCong.getValueAt(row, 0).toString();
+                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
+                String Name = jTable_PhanCong.getValueAt(row, 3).toString();
+                if (PersonID.equals(" ")){
+                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
+                }
+                else{
+                    
+                }
             }
 
             @Override
@@ -139,7 +154,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                 String Title = jTable_PhanCong.getValueAt(row, 1).toString();
                 String PersonID = jTable_PhanCong.getValueAt(row, 2).toString();
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
-                if(JOptionPane.showConfirmDialog(jScrollPane1, "Bạn có muốn xóa phân công cho khóa học " + Title + " cho giảng viên " + Name, Title, WIDTH) == JOptionPane.YES_OPTION){
+                if (PersonID.equals(" ")){
+                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
+                }
+                else{
                     
                 }
                
