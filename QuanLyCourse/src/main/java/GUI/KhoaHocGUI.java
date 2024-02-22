@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -212,15 +213,15 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
-
+        JOptionPane.showMessageDialog(this, "Cập nhật khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);     
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
-
+        JOptionPane.showMessageDialog(this, "Chỉnh sửa khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton_EditActionPerformed
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
-
+        JOptionPane.showMessageDialog(this, "Thêm khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton_AddActionPerformed
 
 
