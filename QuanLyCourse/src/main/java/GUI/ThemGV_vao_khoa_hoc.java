@@ -5,8 +5,11 @@
 package GUI;
 
 import BLL.GiangVienBLL;
+import BLL.PhanCongBLL;
 import DTO.GiangVienDTO;
+import DTO.PhanCongDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +19,10 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
     private static int CourseID;
     private static String Title;
     GiangVienBLL gv = new GiangVienBLL();
+    PhanCongGiangDay pcgv = new PhanCongGiangDay();
     ArrayList<GiangVienDTO> list = new ArrayList<>();
+    private ArrayList<PhanCongDTO> listHTPC = new ArrayList<>();
+    private PhanCongBLL phanCongBLL = new PhanCongBLL();
     /**
      * Creates new form PhanCongGV
      */
@@ -81,6 +87,11 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
 
         BtnXN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         BtnXN.setText("Xác nhận");
+        BtnXN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnXNActionPerformed(evt);
+            }
+        });
 
         cbPersonID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cbPersonID.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +182,16 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
         int SeletedName = cbName.getSelectedIndex();
         cbPersonID.setSelectedIndex(SeletedName);
     }//GEN-LAST:event_cbNameActionPerformed
+
+    private void BtnXNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnXNActionPerformed
+        // TODO add your handling code here:
+        int CourseID = Integer.parseInt(txtCourseID.getText());
+        int PersonID = Integer.parseInt((String) cbPersonID.getSelectedItem());
+        JOptionPane.showMessageDialog(jPanel1, phanCongBLL.ThemPhanCong(CourseID, PersonID));
+        pcgv.loadPC();
+        this.dispose();
+        
+    }//GEN-LAST:event_BtnXNActionPerformed
 
     /**
      * @param args the command line arguments

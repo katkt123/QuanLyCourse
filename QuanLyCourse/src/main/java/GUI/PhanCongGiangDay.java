@@ -13,6 +13,8 @@ import GUI_Custom_Table_PC.TableActionCellRender;
 import GUI_Custom_Table_PC.TableActionEvent;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -121,7 +123,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onAdd(int row) {
-                
+               
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
                 
                 if (Name.isEmpty()){
@@ -131,10 +133,16 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     
                     ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
                     tgv.setVisible(true);
+                    tgv.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            loadPC();
+                        }
+                    });
                 }
                 else{
                     JOptionPane.showMessageDialog(jScrollPane1, "Khóa học đã được phân công");
                 }
+                
             }
 
             @Override
