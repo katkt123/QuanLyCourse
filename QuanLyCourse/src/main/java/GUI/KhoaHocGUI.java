@@ -46,8 +46,8 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         
         modelKH.addColumn("CourseID");
         modelKH.addColumn("Title");
-        modelKH.addColumn("PersonID");
-        modelKH.addColumn("Name");
+        modelKH.addColumn("Credit");
+        modelKH.addColumn("Department");
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setFont(new Font("Arial", Font.BOLD, 20)); // Set bold font
@@ -222,6 +222,8 @@ public class KhoaHocGUI extends javax.swing.JPanel {
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
         JOptionPane.showMessageDialog(this, "Thêm khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI();
+        khoaHocGUI.setVisible(true);
     }//GEN-LAST:event_jButton_AddActionPerformed
 
 
