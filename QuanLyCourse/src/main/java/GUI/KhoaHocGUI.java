@@ -10,6 +10,8 @@ import DTO.KhoaHocDTO;
 import DTO.SinhVienDTO;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -62,6 +64,20 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         for (int i = 0; i < jTable_KhoaHoc.getColumnCount(); i++) {
             jTable_KhoaHoc.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
+        
+        jTable_KhoaHoc.addMouseListener(new MouseAdapter() {
+        	@Override
+                public void mousePressed(MouseEvent mouseEvent) {
+        		if (mouseEvent.getClickCount() == 2 ) {
+                            int row = jTable_KhoaHoc.getSelectedRow();
+                            int idkh = (int) jTable_KhoaHoc.getValueAt(row, 0);
+                            String tt = jTable_KhoaHoc.getValueAt(row, 1).toString();
+                            int cr = (int) jTable_KhoaHoc.getValueAt(row, 2);
+                            int dp = (int) jTable_KhoaHoc.getValueAt(row, 3);
+                            System.out.println("ID: " + idkh + "TT: " + tt + "CR: " + cr + "DP: " + dp);
+                        }		
+        	}
+        });
         
         setIconAdd();
         setIconEdit();
@@ -213,15 +229,15 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
-        JOptionPane.showMessageDialog(this, "Cập nhật khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);     
+        loadKH();  
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
-        JOptionPane.showMessageDialog(this, "Chỉnh sửa khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
+//        JOptionPane.showMessageDialog(this, "Chỉnh sửa khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton_EditActionPerformed
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
-        JOptionPane.showMessageDialog(this, "Thêm khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
+
         AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI();
         khoaHocGUI.setVisible(true);
     }//GEN-LAST:event_jButton_AddActionPerformed
