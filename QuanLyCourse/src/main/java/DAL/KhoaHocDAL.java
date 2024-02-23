@@ -41,8 +41,8 @@ public class KhoaHocDAL {
          String sql = "INSERT INTO Course VALUES (";
                 sql += "'"+course.getCoureID()+"',";
                 sql += "'"+course.getTitle()+"',";
-                sql += "'"+course.getDepartmentID()+"',";
-                sql += "'"+course.getCredits()+"')";
+                sql += "'"+course.getCredits()+"',";
+                sql += "'"+course.getDepartmentID()+"')";
          System.out.println(sql);
         try {
             this.conn.getState().executeUpdate(sql);
@@ -86,7 +86,7 @@ public class KhoaHocDAL {
                 id = rs.getInt(1);
             }
         } catch (Exception e) {
-            System.out.println("Init Sinh Vien :  "+e);
+            System.out.println("Init Khoa  hoc:  "+e);
         }
         return id;
     }

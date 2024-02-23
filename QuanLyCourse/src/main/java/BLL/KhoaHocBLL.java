@@ -33,7 +33,6 @@ public class KhoaHocBLL {
     public void delKhoaHoc(String courseID){  // nhập mã của khóa học dạng String lấy trực tiếp từ textField
         khocHocDAL.delete(courseID);
     }
-
     public int initID(){
         return khocHocDAL.initID();
     }
