@@ -21,6 +21,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     
     int[] ids = {1, 2, 4, 7};
     int selectedId;
+    int something;
     
     KhoaHocBLL khbll = new KhoaHocBLL();
     public AddKhoaHocGUI() {
