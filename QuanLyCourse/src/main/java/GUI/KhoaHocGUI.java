@@ -101,6 +101,12 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         jButton_Refresh.setIcon(icon);
     }
     
+    public void setIconSearch(){
+        String imagePath = "src\\main\\java\\Image\\Search.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
+        jLabel1.setIcon(icon);
+    }
+    
     public void loadKH(){
         arrKhoaHoc = khBLL.getListKH();
 //        int a = arrNCC.size();
@@ -129,9 +135,15 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         jButton_Add = new javax.swing.JButton();
         jButton_Edit = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jTextField_Search = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_KhoaHoc = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton_Add.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Add.addActionListener(new java.awt.event.ActionListener() {
@@ -152,12 +164,40 @@ public class KhoaHocGUI extends javax.swing.JPanel {
             }
         });
 
+        jTextField_Search.setText("Nhập thông tin tìm kiếm : .....");
+        jTextField_Search.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_SearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_SearchFocusLost(evt);
+            }
+        });
+        jTextField_Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_SearchActionPerformed(evt);
+            }
+        });
+        jTextField_Search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_SearchKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setMaximumSize(new java.awt.Dimension(32, 32));
+        jLabel1.setMinimumSize(new java.awt.Dimension(24, 24));
+        jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_Search, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addGap(296, 296, 296)
                 .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,7 +212,9 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_Search)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -242,14 +284,60 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         khoaHocGUI.setVisible(true);
     }//GEN-LAST:event_jButton_AddActionPerformed
 
+    private void jTextField_SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusGained
+        // TODO add your handling code here:
+        if (jTextField_Search.getText().equals("Nhập thông tin tìm kiếm : .....")) {
+            jTextField_Search.setText("");
+            
+        }
+    }//GEN-LAST:event_jTextField_SearchFocusGained
+
+    private void jTextField_SearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusLost
+        // TODO add your handling code here:
+        if (jTextField_Search.getText().isEmpty()) {
+            jTextField_Search.setText("Nhập thông tin tìm kiếm : .....");
+            
+        }
+    }//GEN-LAST:event_jTextField_SearchFocusLost
+
+    private void jTextField_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_SearchActionPerformed
+
+    private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
+        // TODO add your handling code here:
+        String searchText = jTextField_Search.getText().trim();
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<KhoaHocDTO> searchResult = khBLL.search(searchText);
+
+        for(int i = modelKH.getRowCount()-1;i>=0;i--)
+        modelKH.removeRow(i);
+        for(int i = 0; i<searchResult.size();i++){
+            KhoaHocDTO em = searchResult.get(i);
+            int stt= i+1;
+            int id= em.getCoureID();
+            String tt = em.getTitle();
+            int cr= em.getCredits();
+            int dp= em.getDepartmentID();
+            
+            
+
+            Object[] row = {id,tt,cr,dp};
+            modelKH.addRow(row);
+        }
+    }//GEN-LAST:event_jTextField_SearchKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Refresh;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_KhoaHoc;
+    private javax.swing.JTextField jTextField_Search;
     // End of variables declaration//GEN-END:variables
 }

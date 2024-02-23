@@ -36,5 +36,8 @@ public class KhoaHocBLL {
     public int initID(){
         return khocHocDAL.initID();
     }
+    public ArrayList<KhoaHocDTO> search(String s){
+        return khocHocDAL.search(s);
+    }
 }
 
