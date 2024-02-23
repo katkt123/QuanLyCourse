@@ -64,7 +64,7 @@ public class PhanCongDAL {
     }
     
     public boolean ThemPhanCong(int CourseID, int PersonID){
-        String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?, ?);";
+        String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?,?,?);";
         try {
             PreparedStatement ps = conn.getConn().prepareCall(sql);
             ps.setInt(1, CourseID);

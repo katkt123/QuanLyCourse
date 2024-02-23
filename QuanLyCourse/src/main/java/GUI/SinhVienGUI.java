@@ -9,6 +9,8 @@ import DTO.SinhVienDTO;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -68,6 +70,7 @@ public class SinhVienGUI extends javax.swing.JPanel {
         setIconEdit();
         setIconRefresh();
         setIconSearch();
+        setIconEnroll();
         loadSV();
         
     }
@@ -91,6 +94,13 @@ public class SinhVienGUI extends javax.swing.JPanel {
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jLabel1.setIcon(icon);
     }
+    
+    public void setIconEnroll(){
+        String imagePath = "src\\main\\java\\Image\\Enrollment.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+        btnGhiDanh.setIcon(icon);
+    }
+    
     public void loadSV(){
         arrSinhVien = svBLL.getListSV();
 //        int a = arrNCC.size();
@@ -125,6 +135,7 @@ public class SinhVienGUI extends javax.swing.JPanel {
         jTextField_Search = new javax.swing.JTextField();
         jButton_Edit = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        btnGhiDanh = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_SinhVien = new javax.swing.JTable();
@@ -137,7 +148,6 @@ public class SinhVienGUI extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton_Add.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_Add.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\BaiTapLon1\\QuanLyCourse\\src\\main\\java\\Image\\Add.png")); // NOI18N
         jButton_Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_AddActionPerformed(evt);
@@ -146,7 +156,6 @@ public class SinhVienGUI extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\BaiTapLon1\\QuanLyCourse\\src\\main\\java\\Image\\Search.png")); // NOI18N
         jLabel1.setMaximumSize(new java.awt.Dimension(32, 32));
         jLabel1.setMinimumSize(new java.awt.Dimension(24, 24));
         jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
@@ -192,17 +201,22 @@ public class SinhVienGUI extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton_Edit.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\BaiTapLon1\\QuanLyCourse\\src\\main\\java\\Image\\Edit.png")); // NOI18N
         jButton_Edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_EditActionPerformed(evt);
             }
         });
 
-        jButton_Refresh.setIcon(new javax.swing.ImageIcon("C:\\SGU\\Nam3_HK2\\MoHinhPhanLop\\BaiTapLon1\\QuanLyCourse\\src\\main\\java\\Image\\Refresh.png")); // NOI18N
         jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_RefreshActionPerformed(evt);
+            }
+        });
+
+        btnGhiDanh.setForeground(new java.awt.Color(255, 255, 255));
+        btnGhiDanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiDanhActionPerformed(evt);
             }
         });
 
@@ -214,12 +228,14 @@ public class SinhVienGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 373, Short.MAX_VALUE)
-                .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGhiDanh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +245,8 @@ public class SinhVienGUI extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(btnGhiDanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -355,8 +372,27 @@ public class SinhVienGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_SearchActionPerformed
 
+    private void btnGhiDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiDanhActionPerformed
+        // TODO add your handling code here:
+        int SelectedRow = jTable_SinhVien.getSelectedRow();
+        if (SelectedRow == -1){
+            JOptionPane.showMessageDialog(jPanel2, "Vui lòng chọn sinh viên để ghi danh !!!");
+            return;
+        }
+        int StudentID = (int) jTable_SinhVien.getValueAt(SelectedRow, 0);
+        String Name = (String) jTable_SinhVien.getValueAt(SelectedRow, 1) + " " + (String) jTable_SinhVien.getValueAt(SelectedRow, 2);
+        GhiDanhGUI ghiDanhGUI = new GhiDanhGUI(StudentID, Name);
+        ghiDanhGUI.setVisible(true);
+        ghiDanhGUI.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            loadSV();
+                        }
+                    });
+    }//GEN-LAST:event_btnGhiDanhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGhiDanh;
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Refresh;
