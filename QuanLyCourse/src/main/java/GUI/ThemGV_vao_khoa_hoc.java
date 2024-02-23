@@ -19,7 +19,6 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
     private static int CourseID;
     private static String Title;
     GiangVienBLL gv = new GiangVienBLL();
-    PhanCongGiangDay pcgv = new PhanCongGiangDay();
     ArrayList<GiangVienDTO> list = new ArrayList<>();
     private ArrayList<PhanCongDTO> listHTPC = new ArrayList<>();
     private PhanCongBLL phanCongBLL = new PhanCongBLL();
@@ -188,7 +187,6 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
         int CourseID = Integer.parseInt(txtCourseID.getText());
         int PersonID = Integer.parseInt((String) cbPersonID.getSelectedItem());
         JOptionPane.showMessageDialog(jPanel1, phanCongBLL.ThemPhanCong(CourseID, PersonID));
-        pcgv.loadPC();
         this.dispose();
         
     }//GEN-LAST:event_BtnXNActionPerformed

@@ -156,6 +156,14 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
                     String Title = jTable_PhanCong.getValueAt(row, 1).toString();
                     int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
+
+                    SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
+                    sgv.setVisible(true);
+                    sgv.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            loadPC();
+                        }
+                    });
                 }
             }
 

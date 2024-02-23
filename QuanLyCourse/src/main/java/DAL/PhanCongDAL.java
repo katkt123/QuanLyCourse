@@ -81,8 +81,8 @@ public class PhanCongDAL {
         String sql = "UPDATE courseinstructor SET PersonID = ? WHERE CourseID = ?;";
         try {
             PreparedStatement ps = conn.getConn().prepareCall(sql);
-            ps.setInt(1, CourseID);
-            ps.setInt(2, PersonID);
+            ps.setInt(2, CourseID);
+            ps.setInt(1, PersonID);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
