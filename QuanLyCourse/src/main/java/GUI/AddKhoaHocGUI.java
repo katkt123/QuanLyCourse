@@ -26,6 +26,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     KhoaHocBLL khbll = new KhoaHocBLL();
     public AddKhoaHocGUI() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         jLabel1.setHorizontalAlignment(jLabel1.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel2.setHorizontalAlignment(jLabel2.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel3.setHorizontalAlignment(jLabel3.CENTER); // Đưa chữ về giữa theo chiều ngang
