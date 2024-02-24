@@ -43,6 +43,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             }
         });
         
+        ComboType.setSelectedIndex(0);
+        jLabel10.setVisible(false);
+        TextURL.setVisible(false);
+        
         ComboType.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -182,6 +186,11 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         ComboboxDPT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Engineering", "English", "Economics", "Mathematics" }));
 
         ComboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Onsite", "Online" }));
+        ComboType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboTypeActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("M");
 
@@ -404,6 +413,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     private void TextMinuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextMinuteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextMinuteActionPerformed
+
+    private void ComboTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboTypeActionPerformed
 
     /**
      * @param args the command line arguments
