@@ -559,7 +559,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-//            JOptionPane.showMessageDialog(null, "Đây là sửa khóa học");
             int id = Integer.parseInt(TextID.getText().toString());
             String tt = TextTitle.getText().toString();
             int cr = Integer.parseInt(TextCredit.getText().toString());
@@ -572,9 +571,12 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                 kh.setCredits(cr);
                 kh.setDepartmentID(dp);
                 khbll.setKhoaHoc(kh);
+                
+                OnsiteBLL osbll = new OnsiteBLL();   
+                OnlineBLL olbll = new OnlineBLL();
+                
                 if (ComboType.getSelectedIndex() == 0){
-                    KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
-                    OnsiteBLL osbll = new OnsiteBLL();      
+                    KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();                
 
                     String loca = TextLoca.getText().toString();
 
@@ -593,20 +595,30 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                     khos.setLocation(loca);
                     khos.setTime(time);
                     khos.setDays(ngay);
-                    osbll.setKhoaHoc(khos);
+                    
+                    if (olbll.isCourseIDExists(id)) {
+                        olbll.delKhoaHoc(id);
+                        osbll.addKhoaHoc(khos);
+                    } else if (osbll.isCourseIDExists(id))
+                        osbll.setKhoaHoc(khos);
+                    else 
+                        osbll.addKhoaHoc(khos);
                 }if(ComboType.getSelectedIndex() == 1){
                     KhoaHocOnlineDTO khol = new KhoaHocOnlineDTO();
-                    OnlineBLL olbll = new OnlineBLL();
 
                     String url = TextURL.getText().toString();
                     khol.setURL(url);
                     khol.setCourseID(id);
-                    olbll.setKhoaHoc(khol);
+                    if (osbll.isCourseIDExists(id)) {
+                        osbll.delKhoaHoc(id);
+                        olbll.addKhoaHoc(khol);
+                    } else if (olbll.isCourseIDExists(id))
+                        olbll.setKhoaHoc(khol);
+                    else 
+                        olbll.addKhoaHoc(khol);
                 }
             }
-        }
-        
-        
+        }  
     }//GEN-LAST:event_jButton_okActionPerformed
 
     private void TextCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextCreditActionPerformed
