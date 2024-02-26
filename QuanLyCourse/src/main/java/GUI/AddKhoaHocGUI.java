@@ -133,7 +133,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
        
        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
        
-       LocalTime localTime = LocalTime.of(22, 30);
+       LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
        Time time = Time.valueOf(localTime);
 
        
