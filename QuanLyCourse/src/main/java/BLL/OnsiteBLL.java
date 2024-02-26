@@ -36,4 +36,7 @@ public class OnsiteBLL {
     public boolean isCourseIDExists(String courseID) {
         return onsiteDAL.isCourseIDExists(Integer.parseInt(courseID));
     } 
+    public KhoaHocOnSiteDTO getOnSiteCourseByID(int id){
+        return onsiteDAL.getOnSiteCourseByID(id);
+    }
 }

@@ -54,7 +54,66 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         TextCredit.setText(" " +khDTO.getCredits());
         
         ComboboxDPT.setSelectedItem(new DePartBLL().getDepartmentByID(khDTO.getDepartmentID()).getName());
+        OnlineBLL ol = new OnlineBLL();
+        OnsiteBLL os = new OnsiteBLL();
+        if (os.isCourseIDExists(id)){
+            ComboType.setSelectedIndex(0);
+            KhoaHocOnSiteDTO onsite = os.getOnSiteCourseByID(khDTO.getCoureID());
+            TextLoca.setText(onsite.getLocation());
+            
+            setDaysCheckbox(onsite.getDays());
+            
+            SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
+            SimpleDateFormat sdfMinute = new SimpleDateFormat("mm");
+
+            String hour = sdfHour.format(onsite.getTime());
+            String minute = sdfMinute.format(onsite.getTime());
+            TextHour.setText(hour);
+            TextMinute.setText(minute);
+        }
+        else if (ol.isCourseIDExists(id)) {
+            ComboType.setSelectedIndex(1);
+            KhoaHocOnlineDTO online = ol.getOnlineCourseByID(khDTO.getCoureID());
+            TextURL.setText(online.getURL());
+        }
+        
+        
+    }   
+    public void setDaysCheckbox(String days) {
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+
+        for (char c : days.toCharArray()) {
+            switch (c) {
+                case 'M':
+                    jCheckBox1.setSelected(true);
+                    break;
+                case 'T':
+                    jCheckBox2.setSelected(true);
+                    break;
+                case 'W':
+                    jCheckBox3.setSelected(true);
+                    break;
+                case 'H':
+                    jCheckBox4.setSelected(true);
+                    break;
+                case 'F':
+                    jCheckBox5.setSelected(true);
+                    break;
+                case 'S':
+                    jCheckBox6.setSelected(true);
+                    break;
+                default:
+                    // Xử lý trường hợp không hợp lệ nếu cần thiết
+                    break;
+            }
+        }
     }
+
     
     public AddKhoaHocGUI() {
         initComponents();
@@ -168,7 +227,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
        if (jCheckBox1.isSelected()) ngay += "M";
        if (jCheckBox2.isSelected()) ngay += "T";
        if (jCheckBox3.isSelected()) ngay += "W";
-       if (jCheckBox4.isSelected()) ngay += "TH";
+       if (jCheckBox4.isSelected()) ngay += "H";
        if (jCheckBox5.isSelected()) ngay += "F";
        if (jCheckBox6.isSelected()) ngay += "S";
        

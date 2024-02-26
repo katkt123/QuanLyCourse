@@ -5,8 +5,6 @@
 package BLL;
 
 import DAL.OnlineDAL;
-import DAL.OnsiteDAL;
-import DTO.KhoaHocOnSiteDTO;
 import DTO.KhoaHocOnlineDTO;
 import java.util.ArrayList;
 
@@ -36,4 +34,7 @@ public class OnlineBLL {
     public boolean isCourseIDExists(String courseID) {
         return onlineDAL.isCourseIDExists(Integer.parseInt(courseID));
     } 
+    public KhoaHocOnlineDTO getOnlineCourseByID(int id){
+        return onlineDAL.getOnlineCourseByID(id);
+    }
 }

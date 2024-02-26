@@ -92,4 +92,22 @@ public class OnlineDAL {
         }
         return false;
     }
+    public KhoaHocOnlineDTO getOnlineCourseByID(int courseID) {
+        KhoaHocOnlineDTO course = null;
+        String query = "SELECT URL FROM onlinecourse WHERE CourseID = ?";
+        try {
+            PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+            statement.setInt(1, courseID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String url = rs.getString("URL");
+
+                // Tạo đối tượng KhoaHocOnlineDTO từ thông tin lấy được
+                course = new KhoaHocOnlineDTO(courseID, url);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return course;
+    }
 }
