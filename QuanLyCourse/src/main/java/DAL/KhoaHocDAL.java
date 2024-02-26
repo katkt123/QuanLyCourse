@@ -76,6 +76,7 @@ public class KhoaHocDAL {
         JOptionPane.showMessageDialog(null, "Xóa thành công!");
     }
     
+    
     public int initID(){
         int id= 0;
         String query = "Select Count(*) From course";

@@ -14,6 +14,10 @@ public class KhoaHocOnSiteDTO {
     private int CourseID;
     private String Location, Days;
     private Time Time;
+    
+    public KhoaHocOnSiteDTO() {
+        
+    }
 
     public KhoaHocOnSiteDTO(int CourseID, String Location, String Days, Time Time) {
         this.CourseID = CourseID;

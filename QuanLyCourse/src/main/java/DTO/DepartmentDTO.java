@@ -11,25 +11,25 @@ import java.util.Date;
  * @author DELL
  */
 public class DepartmentDTO {
-    private int DapertmentID, Administrator;
+    private int DepartmentID, Administrator;
     private String Name;
     private double Budget;
     private Date StartDate;
 
-    public DepartmentDTO(int DapertmentID, int Administrator, String Name, double Budget, Date StartDate) {
-        this.DapertmentID = DapertmentID;
+    public DepartmentDTO(int DepartmentID, String Name,  double Budget, Date StartDate, int Administrator) {
+        this.DepartmentID = DepartmentID;
         this.Administrator = Administrator;
         this.Name = Name;
         this.Budget = Budget;
         this.StartDate = StartDate;
     }
 
-    public int getDapertmentID() {
-        return DapertmentID;
+    public int getDepartmentID() {
+        return DepartmentID;
     }
 
-    public void setDapertmentID(int DapertmentID) {
-        this.DapertmentID = DapertmentID;
+    public void setDepatmentID(int DapertmentID) {
+        this.DepartmentID = DapertmentID;
     }
 
     public int getAdministrator() {
