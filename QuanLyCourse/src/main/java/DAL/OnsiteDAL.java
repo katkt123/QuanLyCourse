@@ -26,7 +26,7 @@ public class OnsiteDAL {
     public ArrayList<KhoaHocOnSiteDTO> getListKHos(){
         ArrayList<KhoaHocOnSiteDTO> List = new ArrayList<>();
         ResultSet rs = null;
-        String query = "Select CourseID,Location,Days,Time From onsitecrouse";
+        String query = "Select CourseID,Location,Days,Time From onsitecourse";
         try {
             rs = this.conn.getState().executeQuery(query);
             while(rs.next()){

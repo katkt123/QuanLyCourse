@@ -26,7 +26,7 @@ public class OnlineDAL {
     public ArrayList<KhoaHocOnlineDTO> getListKHol(){
         ArrayList<KhoaHocOnlineDTO> List = new ArrayList<>();
         ResultSet rs = null;
-        String query = "Select CourseID,url From onlinecrouse";
+        String query = "Select CourseID,url From onlinecourse";
         try {
             rs = this.conn.getState().executeQuery(query);
             while(rs.next()){

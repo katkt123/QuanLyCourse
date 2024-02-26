@@ -6,10 +6,12 @@ package GUI;
 
 import BLL.DePartBLL;
 import BLL.KhoaHocBLL;
+import BLL.OnlineBLL;
 import BLL.OnsiteBLL;
 import DTO.DepartmentDTO;
 import DTO.KhoaHocDTO;
 import DTO.KhoaHocOnSiteDTO;
+import DTO.KhoaHocOnlineDTO;
 import DTO.SinhVienDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -142,10 +144,18 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     }
     
     public void addonline(int id){
-        chucnang = 1;
+        
+        KhoaHocOnlineDTO khol = new KhoaHocOnlineDTO();
+        OnlineBLL olbll = new OnlineBLL();
+        
+        
         
         String url = TextURL.getText().toString();
         
+        khol.setURL(url);
+        khol.setCourseID(id);
+        
+        olbll.addKhoaHoc(khol);
         
     }
     
@@ -455,8 +465,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             kh.setCredits(cr);
             kh.setDepartmentID(dp);
             khbll.addKhoaHoc(kh);
-            if (chucnang == 0){
+            if (ComboType.getSelectedIndex() == 0){
                 addonsite(id);
+            }if(ComboType.getSelectedIndex() == 1){
+                addonline(id);
             }
             
             JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);

@@ -11,6 +11,10 @@ package DTO;
 public class KhoaHocOnlineDTO {
     private int CourseID;
     private String URL;
+    
+    public KhoaHocOnlineDTO() {
+       
+    }
 
     public KhoaHocOnlineDTO(int CourseID, String URL) {
         this.CourseID = CourseID;
