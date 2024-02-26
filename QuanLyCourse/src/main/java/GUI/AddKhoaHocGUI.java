@@ -51,7 +51,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         
         TextID.setText(id);
         TextTitle.setText(khDTO.getTitle());
-        TextCredit.setText(" " +khDTO.getCredits());
+        TextCredit.setText("" +khDTO.getCredits());
         
         ComboboxDPT.setSelectedItem(new DePartBLL().getDepartmentByID(khDTO.getDepartmentID()).getName());
         OnlineBLL ol = new OnlineBLL();
@@ -577,10 +577,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                     OnsiteBLL osbll = new OnsiteBLL();      
 
                     String loca = TextLoca.getText().toString();
-                    String gio = TextHour.getText().toString();
-                    String phut = TextMinute.getText().toString();
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
                     LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
                     Time time = Time.valueOf(localTime);
@@ -597,9 +593,15 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                     khos.setLocation(loca);
                     khos.setTime(time);
                     khos.setDays(ngay);
-//                    osbll.(khos);
+                    osbll.setKhoaHoc(khos);
                 }if(ComboType.getSelectedIndex() == 1){
-                    addonline(id);
+                    KhoaHocOnlineDTO khol = new KhoaHocOnlineDTO();
+                    OnlineBLL olbll = new OnlineBLL();
+
+                    String url = TextURL.getText().toString();
+                    khol.setURL(url);
+                    khol.setCourseID(id);
+                    olbll.setKhoaHoc(khol);
                 }
             }
         }

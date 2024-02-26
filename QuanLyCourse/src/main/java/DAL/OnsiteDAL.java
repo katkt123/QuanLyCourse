@@ -57,8 +57,8 @@ public class OnsiteDAL {
      public void setKHos(KhoaHocOnSiteDTO course) {
         String sql = "UPDATE onsitecourse SET ";
         sql += "Location='"+course.getLocation()+"', ";
-        sql += "Days="+course.getDays()+", ";
-        sql += "Time="+course.getTime()+" ";
+        sql += "Days='"+course.getDays()+"', ";
+        sql += "Time='"+course.getTime()+"' ";
         sql += " WHERE CourseID="+course.getCourseID();
         System.out.println(sql);
         try {

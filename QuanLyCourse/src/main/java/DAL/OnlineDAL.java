@@ -53,7 +53,7 @@ public class OnlineDAL {
     
      public void setKHol(KhoaHocOnlineDTO course) {
         String sql = "UPDATE onlinecourse SET ";
-        sql += "url='"+course.getURL()+"', ";
+        sql += "url='"+course.getURL()+"' ";
         sql += " WHERE CourseID="+course.getCourseID();
         System.out.println(sql);
         try {
