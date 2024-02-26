@@ -21,7 +21,9 @@ public class OnlineBLL {
     public void addKhoaHoc(KhoaHocOnlineDTO kh){
         onlineDAL.addKHol(kh);
     }
-    
+    public void setKhoaHoc(KhoaHocOnlineDTO kh){
+        onlineDAL.setKHol(kh);
+    }
     public void delKhoaHoc(int courseID){  // nhập mã của khóa học dạng int
         onlineDAL.deleteKHol(Integer.toString( courseID));
     }

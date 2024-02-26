@@ -205,24 +205,18 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     }
 
     public void addonsite(int id){
-        KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
-        OnsiteBLL osbll = new OnsiteBLL();
-        
-        
-       chucnang = 0;
+       KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+       OnsiteBLL osbll = new OnsiteBLL();      
        
        String loca = TextLoca.getText().toString();
        String gio = TextHour.getText().toString();
        String phut = TextMinute.getText().toString();
-       
        
        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
        
        LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
        Time time = Time.valueOf(localTime);
 
-       
-       
        String ngay = "";
        if (jCheckBox1.isSelected()) ngay += "M";
        if (jCheckBox2.isSelected()) ngay += "T";
@@ -231,12 +225,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
        if (jCheckBox5.isSelected()) ngay += "F";
        if (jCheckBox6.isSelected()) ngay += "S";
        
-       
        khos.setCourseID(id);
        khos.setLocation(loca);
        khos.setTime(time);
        khos.setDays(ngay);
-       
        osbll.addKhoaHoc(khos);
     }
     
@@ -540,30 +532,76 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
 
     private void jButton_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_okActionPerformed
         
-        courseid = khbll.initID() + 1;
+        if (getTitle().equals("Thêm Khóa Học")) {
+            courseid = khbll.initID() + 1;
         
-        int id = Integer.parseInt(TextID.getText().toString());
-        String tt = TextTitle.getText().toString();
-        int cr = Integer.parseInt(TextCredit.getText().toString());
-        int dp = selectedId;
-        
-        if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
-            KhoaHocDTO kh = new KhoaHocDTO();
-            kh.setCoureID(id);
-            kh.setTitle(tt);
-            kh.setCredits(cr);
-            kh.setDepartmentID(dp);
-            khbll.addKhoaHoc(kh);
-            if (ComboType.getSelectedIndex() == 0){
-                addonsite(id);
-            }if(ComboType.getSelectedIndex() == 1){
-                addonline(id);
+            int id = Integer.parseInt(TextID.getText().toString());
+            String tt = TextTitle.getText().toString();
+            int cr = Integer.parseInt(TextCredit.getText().toString());
+            int dp = selectedId;
+
+            if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
+                KhoaHocDTO kh = new KhoaHocDTO();
+                kh.setCoureID(id);
+                kh.setTitle(tt);
+                kh.setCredits(cr);
+                kh.setDepartmentID(dp);
+                khbll.addKhoaHoc(kh);
+                if (ComboType.getSelectedIndex() == 0){
+                    addonsite(id);
+                }if(ComboType.getSelectedIndex() == 1){
+                    addonline(id);
+                }
+
+                JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-            JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(null, "Đây là sửa khóa học");
+            int id = Integer.parseInt(TextID.getText().toString());
+            String tt = TextTitle.getText().toString();
+            int cr = Integer.parseInt(TextCredit.getText().toString());
+            int dp = selectedId;
+
+            if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
+                KhoaHocDTO kh = new KhoaHocDTO();
+                kh.setCoureID(id);
+                kh.setTitle(tt);
+                kh.setCredits(cr);
+                kh.setDepartmentID(dp);
+                khbll.setKhoaHoc(kh);
+                if (ComboType.getSelectedIndex() == 0){
+                    KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+                    OnsiteBLL osbll = new OnsiteBLL();      
+
+                    String loca = TextLoca.getText().toString();
+                    String gio = TextHour.getText().toString();
+                    String phut = TextMinute.getText().toString();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+                    LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
+                    Time time = Time.valueOf(localTime);
+
+                    String ngay = "";
+                    if (jCheckBox1.isSelected()) ngay += "M";
+                    if (jCheckBox2.isSelected()) ngay += "T";
+                    if (jCheckBox3.isSelected()) ngay += "W";
+                    if (jCheckBox4.isSelected()) ngay += "H";
+                    if (jCheckBox5.isSelected()) ngay += "F";
+                    if (jCheckBox6.isSelected()) ngay += "S";
+
+                    khos.setCourseID(id);
+                    khos.setLocation(loca);
+                    khos.setTime(time);
+                    khos.setDays(ngay);
+//                    osbll.(khos);
+                }if(ComboType.getSelectedIndex() == 1){
+                    addonline(id);
+                }
+            }
         }
         
         
