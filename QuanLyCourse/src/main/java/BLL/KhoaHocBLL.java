@@ -39,6 +39,9 @@ public class KhoaHocBLL {
     public ArrayList<KhoaHocDTO> search(String s){
         return khocHocDAL.search(s);
     }
+    public String getDepartment(int did){
+        return khocHocDAL.getDepartment(did);
+    }
 //    public static void main(String[] args) {
 //        KhoaHocBLL kh = new KhoaHocBLL();
 //        kh.delKhoaHoc(1);

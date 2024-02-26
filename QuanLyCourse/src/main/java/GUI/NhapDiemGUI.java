@@ -38,10 +38,10 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         
         jTable_KhoaHoc.setModel(modelSV);
         
-        modelSV.addColumn("PersonID");
-        modelSV.addColumn("FirstName");
-        modelSV.addColumn("LastName");
-        modelSV.addColumn("EnrollmentDate");
+        modelSV.addColumn("CourseID");
+        modelSV.addColumn("Credits");
+        modelSV.addColumn("Department");
+        modelSV.addColumn("Title");
         
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
@@ -60,6 +60,8 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         
         setIconSearch();
         setIconScore();
+        
+        loadKhoaHoc();
     }
 
     public void setIconSearch(){
@@ -83,11 +85,11 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             int id= em.getCoureID();
             int cd = em.getCredits();
             int did = em.getDepartmentID();
-            
+            String name = khBLL.getDepartment(did);
             String tt = em.getTitle();
             
-        
-            Object[] row = {id,cd,did,tt};
+            
+            Object[] row = {id,cd,name,tt};
             modelSV.addRow(row);
         }
     }
@@ -263,24 +265,26 @@ public class NhapDiemGUI extends javax.swing.JPanel {
 
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
         // TODO add your handling code here:
-//        String searchText = jTextField_Search.getText().trim();
-//
-//        // Gọi hàm search với nội dung tìm kiếm
-//        ArrayList<SinhVienDTO> searchResult = svBLL.search(searchText);
-//
-//        for(int i = modelSV.getRowCount()-1;i>=0;i--)
-//        modelSV.removeRow(i);
-//        for(int i = 0; i<searchResult.size();i++){
-//            SinhVienDTO em= searchResult.get(i);
-//            int stt= i+1;
-//            int id= em.getPersonID();
-//            String first = em.getFirstName();
-//            String last = em.getLastName();
-//            String enrollment = em.getEnrollmentDate();
-//
-//            Object[] row = {id,first,last,enrollment};
-//            modelSV.addRow(row);
-//        }
+        String searchText = jTextField_Search.getText().trim();
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<KhoaHocDTO> searchResult = khBLL.search(searchText);
+
+        for(int i = modelSV.getRowCount()-1;i>=0;i--)
+            modelSV.removeRow(i);
+        for(int i = 0; i<arrKhoaHoc.size();i++){
+            KhoaHocDTO em= arrKhoaHoc.get(i);
+            
+            int id= em.getCoureID();
+            int cd = em.getCredits();
+            int did = em.getDepartmentID();
+            String name = khBLL.getDepartment(did);
+            String tt = em.getTitle();
+            
+            
+            Object[] row = {id,cd,name,tt};
+            modelSV.addRow(row);
+        }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
     private void jButton_ScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ScoreActionPerformed

@@ -6,6 +6,7 @@ package DAL;
 
 import DTO.KhoaHocDTO;
 import DTO.KhoaHocOnSiteDTO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -78,5 +79,20 @@ public class OnsiteDAL {
         System.out.println(sql);
         JOptionPane.showMessageDialog(null, "Xóa thành công!");
     } 
-     
+    public boolean isCourseIDExists(int courseID) {
+        
+        String query = "SELECT COUNT(*) FROM onsitecourse WHERE CourseID = ?";
+        try {
+            PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+            statement.setInt(1, courseID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    } 
 }

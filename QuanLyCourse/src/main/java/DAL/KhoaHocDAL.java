@@ -37,6 +37,21 @@ public class KhoaHocDAL {
         }
         return List;
     }
+    public String getDepartment(int did){
+        String s = "";
+        ResultSet rs = null;
+        String query="Select Name From department where DepartmentID = "+did   ;
+        try {
+            rs = this.conn.getState().executeQuery(query);
+            while(rs.next()){
+                s = rs.getString(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Get Department :  "+e);
+        }
+        
+        return s;
+    }
     public void addCourse(KhoaHocDTO course) {
          String sql = "INSERT INTO Course VALUES (";
                 sql += "'"+course.getCoureID()+"',";

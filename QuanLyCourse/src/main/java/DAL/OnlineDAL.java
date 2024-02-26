@@ -75,7 +75,9 @@ public class OnlineDAL {
         System.out.println(sql);
         JOptionPane.showMessageDialog(null, "Xóa thành công!");
     } 
+     
     public boolean isCourseIDExists(int courseID) {
+        
         String query = "SELECT COUNT(*) FROM onlinecourse WHERE CourseID = ?";
         try {
             PreparedStatement statement = this.conn.getConn().prepareStatement(query);
