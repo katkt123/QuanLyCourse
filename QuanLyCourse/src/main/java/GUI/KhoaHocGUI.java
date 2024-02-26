@@ -5,6 +5,8 @@
 package GUI;
 
 import BLL.KhoaHocBLL;
+import BLL.OnlineBLL;
+import BLL.OnsiteBLL;
 import BLL.SinhVienBLL;
 import DTO.KhoaHocDTO;
 import DTO.SinhVienDTO;
@@ -348,7 +350,19 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
     private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
-        // TODO add your handling code here:
+        int i = jTable_KhoaHoc.getSelectedRow();
+        if (i == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn hàng cần xóa! ");
+        } else {
+            OnlineBLL ol = new OnlineBLL();
+            OnsiteBLL os = new OnsiteBLL();
+            if (ol.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
+                ol.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+            else if (os.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
+                os.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+            
+            khBLL.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+        }
     }//GEN-LAST:event_jButton_DeleteActionPerformed
 
 

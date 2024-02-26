@@ -30,4 +30,10 @@ public class OnlineBLL {
     public void delKhoaHoc(String courseID){  // nhập mã của khóa học dạng String lấy trực tiếp từ textField
         onlineDAL.deleteKHol(courseID);
     }
+    public boolean isCourseIDExists(int courseID) {
+        return onlineDAL.isCourseIDExists(courseID);
+    }
+    public boolean isCourseIDExists(String courseID) {
+        return onlineDAL.isCourseIDExists(Integer.parseInt(courseID));
+    } 
 }

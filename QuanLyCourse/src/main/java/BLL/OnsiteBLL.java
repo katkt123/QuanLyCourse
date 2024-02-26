@@ -30,4 +30,10 @@ public class OnsiteBLL {
     public void delKhoaHoc(String courseID){  // nhập mã của khóa học dạng String lấy trực tiếp từ textField
         onsiteDAL.delete(courseID);
     }
+    public boolean isCourseIDExists(int courseID) {
+        return onsiteDAL.isCourseIDExists(courseID);
+    }
+    public boolean isCourseIDExists(String courseID) {
+        return onsiteDAL.isCourseIDExists(Integer.parseInt(courseID));
+    } 
 }
