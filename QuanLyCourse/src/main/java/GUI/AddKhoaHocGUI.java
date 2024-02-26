@@ -128,8 +128,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(jLabel3.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
         
-        ComboboxDPT.setSelectedIndex(-1);
-        ComboType.setSelectedIndex(-1);
         
         arrDP = dp.getListDP();
         
@@ -155,6 +153,11 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                
             }
         });
+        
+        
+        
+        ComboboxDPT.setSelectedIndex(0);
+        ComboType.setSelectedIndex(0);
         
         ComboType.setSelectedIndex(0);
         TextURL.setVisible(false);
@@ -547,9 +550,9 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                 kh.setCredits(cr);
                 kh.setDepartmentID(dp);
                 khbll.addKhoaHoc(kh);
-                if (ComboType.getSelectedIndex() == 0){
+                if (ComboType.getSelectedIndex() == 0 && !TextLoca.getText().isEmpty()){
                     addonsite(id);
-                }if(ComboType.getSelectedIndex() == 1){
+                }if(ComboType.getSelectedIndex() == 1 && !TextURL.getText().isEmpty()){
                     addonline(id);
                 }
 
