@@ -6,12 +6,15 @@ package GUI;
 
 import BLL.DePartBLL;
 import BLL.KhoaHocBLL;
+import BLL.OnsiteBLL;
 import DTO.DepartmentDTO;
 import DTO.KhoaHocDTO;
 import DTO.KhoaHocOnSiteDTO;
 import DTO.SinhVienDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -112,8 +115,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         });
     }
 
-    public void addonsite(){
-//        KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+    public void addonsite(int id){
+        KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+        OnsiteBLL osbll = new OnsiteBLL();
+        
         
        chucnang = 0;
        
@@ -122,11 +127,26 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
        String phut = TextMinute.getText().toString();
        String ngay = "MD";
        
+       String timeStr = "10:20:00";
        
+       SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+       
+//       LocalTime time = LocalTime.parse(sdf.parse(timeStr));
+       
+       khos.setCourseID(id);
+       khos.setLocation(loca);
+//       khos.setTime(Time);
+       khos.setDays(ngay);
+       
+       osbll.addKhoaHoc(khos);
     }
     
-    public void addonline(){
+    public void addonline(int id){
         chucnang = 1;
+        
+        String url = TextURL.getText().toString();
+        
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -435,12 +455,16 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             kh.setCredits(cr);
             kh.setDepartmentID(dp);
             khbll.addKhoaHoc(kh);
+            if (chucnang == 0){
+                addonsite(id);
+            }
             
             JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
         }
+        
         
     }//GEN-LAST:event_jButton_okActionPerformed
 
