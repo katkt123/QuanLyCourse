@@ -15,6 +15,7 @@ import DTO.KhoaHocOnlineDTO;
 import DTO.SinhVienDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -129,15 +130,16 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
        String phut = TextMinute.getText().toString();
        String ngay = "MD";
        
-       String timeStr = "10:20:00";
        
        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
        
-//       LocalTime time = LocalTime.parse(sdf.parse(timeStr));
+       LocalTime localTime = LocalTime.of(22, 30);
+       Time time = Time.valueOf(localTime);
+
        
        khos.setCourseID(id);
        khos.setLocation(loca);
-//       khos.setTime(Time);
+       khos.setTime(time);
        khos.setDays(ngay);
        
        osbll.addKhoaHoc(khos);
