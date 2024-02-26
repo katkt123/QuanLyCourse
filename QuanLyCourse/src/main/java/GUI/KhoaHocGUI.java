@@ -81,6 +81,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         
         setIconAdd();
         setIconEdit();
+        setIconDelete();
         setIconRefresh();
         loadKH();
     }
@@ -94,6 +95,11 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         String imagePath = "src\\main\\java\\Image\\Edit.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
         jButton_Edit.setIcon(icon);
+    }
+    public void setIconDelete(){
+        String imagePath = "src\\main\\java\\GUI_Custom_Table_PC\\Delete_PC.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+        jButton_Delete.setIcon(icon);
     }
     public void setIconRefresh(){
         String imagePath = "src\\main\\java\\Image\\Refresh.png"; // 
@@ -137,6 +143,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         jButton_Refresh = new javax.swing.JButton();
         jTextField_Search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jButton_Delete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_KhoaHoc = new javax.swing.JTable();
@@ -188,6 +195,13 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         jLabel1.setMinimumSize(new java.awt.Dimension(24, 24));
         jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
 
+        jButton_Delete.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -200,10 +214,12 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                 .addGap(296, 296, 296)
                 .addComponent(jButton_Add, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
+                .addGap(83, 83, 83))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,10 +230,13 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                         .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField_Search)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_Delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                     .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jTable_KhoaHoc.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jTable_KhoaHoc.setModel(new javax.swing.table.DefaultTableModel(
@@ -328,9 +347,14 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
+    private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_DeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JLabel jLabel1;

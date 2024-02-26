@@ -59,10 +59,12 @@
                   <EmptySpace min="-2" pref="296" max="-2" attributes="0"/>
                   <Component id="jButton_Add" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton_Delete" min="-2" pref="51" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton_Edit" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton_Refresh" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,6 +78,7 @@
                           <Component id="jButton_Edit" alignment="0" max="32767" attributes="0"/>
                           <Component id="jTextField_Search" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="1" pref="0" max="32767" attributes="0"/>
+                          <Component id="jButton_Delete" alignment="1" pref="41" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jButton_Refresh" min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
@@ -129,9 +132,24 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="jButton_Delete">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_DeleteActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
