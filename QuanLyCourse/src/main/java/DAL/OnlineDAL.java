@@ -40,13 +40,13 @@ public class OnlineDAL {
     
      public void addKHol(KhoaHocOnlineDTO course) {
          String sql = "INSERT INTO onlinecourse VALUES (";
-                sql += "'"+course.getCourseID()+"',";
-                sql += "'"+course.getURL()+"',";
+                sql += " '"+course.getCourseID()+"',";
+                sql += " '"+course.getURL()+"')";
          System.out.println(sql);
         try {
             this.conn.getState().executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OnlineDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
