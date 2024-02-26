@@ -6,7 +6,6 @@ package BLL;
 
 import DAL.DepartDAL;
 import DTO.DepartmentDTO;
-import DTO.KhoaHocDTO;
 import java.util.ArrayList;
 
 /**
@@ -19,5 +18,9 @@ public class DePartBLL {
     
     public ArrayList<DepartmentDTO> getListDP(){
         return depart.getListDP();
+    }
+    
+    public DepartmentDTO getDepartmentByID(int departmentID) {
+        return depart.getDepartmentByID(departmentID);
     }
 }

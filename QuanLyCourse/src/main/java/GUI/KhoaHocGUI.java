@@ -296,7 +296,13 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_RefreshActionPerformed
 
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
-//        JOptionPane.showMessageDialog(this, "Chỉnh sửa khóa học", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        int row = jTable_KhoaHoc.getSelectedRow();
+        if (row == -1) 
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn Khóa học cần sửa! ");
+        else {        
+            AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI(jTable_KhoaHoc.getValueAt(row, 0).toString());
+            khoaHocGUI.setVisible(true);
+        }
     }//GEN-LAST:event_jButton_EditActionPerformed
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed

@@ -5,13 +5,13 @@
 package DAL;
 
 import DTO.DepartmentDTO;
-import DTO.KhoaHocDTO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,7 +37,7 @@ public class DepartDAL {
         }
         return List;
     }
-    public void addCourse(DepartmentDTO course) {
+    public void addDepart(DepartmentDTO course) {
          String sql = "INSERT INTO Course VALUES (";
                 sql += "'"+course.getDepartmentID()+"',";
                 sql += "'"+course.getName()+"',";
@@ -50,5 +50,26 @@ public class DepartDAL {
         } catch (SQLException ex) {
             Logger.getLogger(DepartDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public DepartmentDTO getDepartmentByID(int departmentID) {
+        DepartmentDTO department = null;
+        String query = "SELECT Name, Budget, StartDate, Administrator FROM Department WHERE DepartmentID = ?";
+        try {
+            PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+            statement.setInt(1, departmentID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String name = rs.getString("Name");
+                double budget = rs.getDouble("Budget");
+                Date startDate = rs.getDate("StartDate");
+                int administrator = rs.getInt("Administrator");
+
+                // Tạo đối tượng DepartmentDTO từ thông tin lấy được
+                department = new DepartmentDTO(departmentID, name, budget, startDate, administrator);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return department;
     }
 }

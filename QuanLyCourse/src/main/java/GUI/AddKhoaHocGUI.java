@@ -39,9 +39,29 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     DePartBLL dp = new DePartBLL();
     
     int chucnang ;
+    public AddKhoaHocGUI(String id) {
+        initComponents();
+        initHere();
+        setTitle("Sửa Khóa Học");
+        TextID.setEditable(false);
+        jLabel1.setText("SỬA KHÓA HỌC");
+        
+        KhoaHocBLL kh = new KhoaHocBLL();
+        KhoaHocDTO khDTO = kh.getCourseByID(id);
+        
+        TextID.setText(id);
+        TextTitle.setText(khDTO.getTitle());
+        TextCredit.setText(" " +khDTO.getCredits());
+        
+        ComboboxDPT.setSelectedItem(new DePartBLL().getDepartmentByID(khDTO.getDepartmentID()).getName());
+    }
     
     public AddKhoaHocGUI() {
         initComponents();
+        initHere();
+        setTitle("Thêm Khóa Học");
+    }
+    private void initHere(){
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         jLabel1.setHorizontalAlignment(jLabel1.CENTER); // Đưa chữ về giữa theo chiều ngang
@@ -377,7 +397,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(TextMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
