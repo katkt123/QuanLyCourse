@@ -9,6 +9,7 @@ import DTO.KhoaHocOnSiteDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,4 +96,24 @@ public class OnsiteDAL {
         }
         return false;
     } 
+    public KhoaHocOnSiteDTO getOnSiteCourseByID(int courseID) {
+        KhoaHocOnSiteDTO course = null;
+        String query = "SELECT Location, Days, Time FROM onsitecourse WHERE CourseID = ?";
+        try {
+            PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+            statement.setInt(1, courseID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String location = rs.getString("Location");
+                String days = rs.getString("Days");
+                Time time = rs.getTime("Time");
+
+                // Tạo đối tượng KhoaHocOnSiteDTO từ thông tin lấy được
+                course = new KhoaHocOnSiteDTO(courseID, location, days, time);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return course;
+    }
 }
