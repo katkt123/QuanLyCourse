@@ -4,11 +4,15 @@
  */
 package GUI;
 
+import BLL.DePartBLL;
 import BLL.KhoaHocBLL;
+import DTO.DepartmentDTO;
 import DTO.KhoaHocDTO;
+import DTO.KhoaHocOnSiteDTO;
 import DTO.SinhVienDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +23,17 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
 
     private int courseid;
     
+    ArrayList<DepartmentDTO> arrDP = new ArrayList<DepartmentDTO>();
+    
     int[] ids = {1, 2, 4, 7};
     int selectedId;
     int something;
     
     KhoaHocBLL khbll = new KhoaHocBLL();
+    DePartBLL dp = new DePartBLL();
+    
+    int chucnang ;
+    
     public AddKhoaHocGUI() {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
@@ -35,12 +45,29 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         
         ComboboxDPT.setSelectedIndex(-1);
         ComboType.setSelectedIndex(-1);
+        
+        arrDP = dp.getListDP();
+        
+       
+        for(int i = 0; i<arrDP.size();i++){
+            DepartmentDTO dp = arrDP.get(i);
+            int stt= i+1;
+            
+            int id= dp.getDepartmentID();
+            String name = dp.getName();
+            
+            
+            ComboboxDPT.addItem(name);
+        }
+        
+        
+        
         ComboboxDPT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                selectedId = ids[ComboboxDPT.getSelectedIndex()];
-
-                System.out.println("ID được chọn: " + ids[ComboboxDPT.getSelectedIndex()]);
+               
             }
         });
         
@@ -85,6 +112,22 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         });
     }
 
+    public void addonsite(){
+//        KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+        
+       chucnang = 0;
+       
+       String loca = TextLoca.getText().toString();
+       String gio = TextHour.getText().toString();
+       String phut = TextMinute.getText().toString();
+       String ngay = "MD";
+       
+       
+    }
+    
+    public void addonline(){
+        chucnang = 1;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -183,8 +226,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                 TextHourActionPerformed(evt);
             }
         });
-
-        ComboboxDPT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Engineering", "English", "Economics", "Mathematics" }));
 
         ComboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Onsite", "Online" }));
         ComboType.addActionListener(new java.awt.event.ActionListener() {
