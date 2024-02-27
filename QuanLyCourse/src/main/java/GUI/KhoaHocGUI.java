@@ -4,10 +4,12 @@
  */
 package GUI;
 
+import BLL.DePartBLL;
 import BLL.KhoaHocBLL;
 import BLL.OnlineBLL;
 import BLL.OnsiteBLL;
 import BLL.SinhVienBLL;
+import DTO.DepartmentDTO;
 import DTO.KhoaHocDTO;
 import DTO.SinhVienDTO;
 import java.awt.Font;
@@ -30,6 +32,13 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     KhoaHocBLL khBLL = new KhoaHocBLL();
     
     ArrayList<KhoaHocDTO> arrKhoaHoc = new ArrayList<KhoaHocDTO>();
+    
+    ArrayList<DepartmentDTO> arrDP = new ArrayList<DepartmentDTO>();
+    DePartBLL dp = new DePartBLL();
+    
+   
+    
+    KhoaHocBLL khbll = new KhoaHocBLL();
 
     DefaultTableModel modelKH = new DefaultTableModel() {
         @Override
@@ -45,6 +54,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     
     public KhoaHocGUI() {
         initComponents();
+        arrDP = dp.getListDP();
         
         jTable_KhoaHoc.setModel(modelKH);
         
@@ -127,10 +137,22 @@ public class KhoaHocGUI extends javax.swing.JPanel {
             int id= kh.getCoureID();
             String tt = kh.getTitle();
             int cr = kh.getCredits();
-            int dp = kh.getDepartmentID();
+            int dpid = kh.getDepartmentID();
+            String namedp = "a";
             
+            for(int j = 0; j < arrDP.size(); j++){
+                
+                DepartmentDTO dpdto = arrDP.get(j);
+                
+                int stt2 = i+1;
+            
+                if (dpdto.getDepartmentID() == dpid)
+                {
+                    namedp = dpdto.getName();
+                }
+            }
         
-            Object[] row = {id,tt,cr,dp};
+            Object[] row = {id,tt,cr,namedp};
             modelKH.addRow(row);
         }
     }
@@ -220,21 +242,20 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
+                .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_Search)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jButton_Delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton_Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField_Search)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton_Delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
