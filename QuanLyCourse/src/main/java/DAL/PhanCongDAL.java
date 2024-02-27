@@ -56,12 +56,7 @@ public class PhanCongDAL {
             e.printStackTrace();
         }
         return List;
-    }
-    
-    public boolean PhanCongGV(PhanCongDTO gv){
-        
-        return false;
-    }
+    }                    
     
     public boolean ThemPhanCong(int CourseID, int PersonID){
         String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?,?,?);";
