@@ -4,23 +4,23 @@
  */
 package GUI;
 
-import BLL.SinhVienBLL;
-import DTO.SinhVienDTO;
+import BLL.GiangVienBLL;
+import DTO.GiangVienDTO;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author ASUS
+ * @author loc01
  */
-public class AddSinhVienGUI extends javax.swing.JFrame {
+public class AddGiangVienGUI extends javax.swing.JFrame {
     private int id;
-    SinhVienBLL svBLL = new SinhVienBLL();
+    GiangVienBLL gvBLL = new GiangVienBLL();
     /**
-     * Creates new form AddSinhVienGUI
+     * Creates new form AddGiangVienGUI
      */
-    public AddSinhVienGUI() {
+    public AddGiangVienGUI() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(Main.DISPOSE_ON_CLOSE);
@@ -30,6 +30,7 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
         displayCurrentTime();
     }
+
     private void displayCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -46,9 +47,9 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextField_FN = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField_LN = new javax.swing.JTextField();
         jTextField_ED = new javax.swing.JTextField();
@@ -56,9 +57,16 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
         jButton_Create = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(413, 350));
+        setMinimumSize(new java.awt.Dimension(413, 350));
+        setPreferredSize(new java.awt.Dimension(413, 300));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("HireDate");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("FirstName");
@@ -70,11 +78,6 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
                 jTextField_FNActionPerformed(evt);
             }
         });
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ErollmentDate");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("LastName");
@@ -89,7 +92,7 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("THÊM SINH VIÊN");
+        jLabel4.setText("THÊM GIẢNG VIÊN");
 
         jButton_Create.setBackground(new java.awt.Color(153, 255, 153));
         jButton_Create.setText("Thêm");
@@ -155,11 +158,15 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField_FNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_FNActionPerformed
 
     private void jTextField_EDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_EDActionPerformed
         // TODO add your handling code here:
@@ -167,29 +174,25 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
 
     private void jButton_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CreateActionPerformed
         // TODO add your handling code here:
-        id = svBLL.initID() + 1;
+        id = gvBLL.initID() + 1;
 
         String firstName = jTextField_FN.getText();
         String lastName = jTextField_LN.getText();
 
         if (!"".equals(firstName) && !"".equals(lastName)) {
-            SinhVienDTO sv = new SinhVienDTO();
-            sv.setPersonID(id);
-            sv.setFirstName(firstName);
-            sv.setLastName(lastName);
-            sv.setEnrollmentDate(jTextField_ED.getText());
-            svBLL.AddSinhVien(sv);
-            
-            JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
+            GiangVienDTO gv = new GiangVienDTO();
+            gv.setPersonID(id);
+            gv.setFirstName(firstName);
+            gv.setLastName(lastName);
+            gv.setEnrollmentDate(jTextField_ED.getText());
+            gvBLL.AddGiangVien(gv);
+
+            JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm giảng viên", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton_CreateActionPerformed
-
-    private void jTextField_FNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,20 +211,20 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddSinhVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddGiangVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddSinhVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddGiangVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddSinhVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddGiangVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddSinhVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddGiangVienGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddSinhVienGUI().setVisible(true);
+                new AddGiangVienGUI().setVisible(true);
             }
         });
     }

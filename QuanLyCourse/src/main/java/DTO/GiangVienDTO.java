@@ -6,13 +6,21 @@ package DTO;
 
 /**
  *
- * @author DELL
+ * @author ASUS
  */
 public class GiangVienDTO {
     private int PersonID;
     private String LastName;
     private String FirstName;
+    private String EnrollmentDate = null;
     private String HireDate;
+    
+    public GiangVienDTO(){
+        this.HireDate = "";
+        this.FirstName = "";
+        this.LastName = "";
+        this.PersonID = 0;
+    }
 
     public GiangVienDTO(int PersonID, String LastName, String FirstName, String HireDate) {
         this.PersonID = PersonID;
@@ -21,37 +29,44 @@ public class GiangVienDTO {
         this.HireDate = HireDate;
     }
 
-    public int getPersonID() {
-        return PersonID;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setPersonID(int PersonID) {
-        this.PersonID = PersonID;
+    public String getEnrollmentDate() {
+        return EnrollmentDate;
     }
 
     public String getLastName() {
         return LastName;
     }
 
-    public void setLastName(String LastName) {
-        this.LastName = LastName;
+    public int getPersonID() {
+        return PersonID;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public void setEnrollmentDate(String EnrollmentDate) {
+        this.EnrollmentDate = EnrollmentDate;
+    }
+
+    public void setLastName(String LastName) {
+        this.LastName = LastName;
     }
 
     public void setFirstName(String FirstName) {
         this.FirstName = FirstName;
     }
 
-    public String getHireDate() {
-        return HireDate;
+    public void setPersonID(int PersonID) {
+        this.PersonID = PersonID;
     }
 
     public void setHireDate(String HireDate) {
         this.HireDate = HireDate;
     }
-    
+
+    public String getHireDate() {
+        return HireDate;
+    }
     
 }

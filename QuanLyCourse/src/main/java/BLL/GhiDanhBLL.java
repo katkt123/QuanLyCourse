@@ -5,6 +5,7 @@
 package BLL;
 
 import DAL.GhiDanhDAL;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,5 +18,15 @@ public class GhiDanhBLL {
             return "Ghi danh thành công";
         }
         return "Ghi danh thất bại :((";
+    }
+    public ArrayList<Object[]> getStudentGradesByCourseID(int courseID) {
+        return gd.getStudentGradesByCourseID(courseID);
+    }
+    
+    public String updateGrade(int courseID, int studentID, double newGrade) {
+        if (gd.updateGrade(courseID, studentID, newGrade)) {
+            return "Cập nhật điểm thành công";
+        }
+        return "Cập nhật điểm thất bại :((";
     }
 }

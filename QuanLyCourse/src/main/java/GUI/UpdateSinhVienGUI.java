@@ -77,7 +77,7 @@ public class UpdateSinhVienGUI extends javax.swing.JFrame {
         jLabel4.setText("SỬA SINH VIÊN");
 
         jButton_Update.setBackground(new java.awt.Color(153, 255, 153));
-        jButton_Update.setText("Update");
+        jButton_Update.setText("Sửa");
         jButton_Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_UpdateActionPerformed(evt);

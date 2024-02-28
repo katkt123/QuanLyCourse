@@ -10,13 +10,24 @@ import java.util.ArrayList;
 
 /**
  *
- * @author DELL
+ * @author ASUS
  */
 public class GiangVienBLL {
-    GiangVienDAL giangVienDAL = new GiangVienDAL();
+    GiangVienDAL svDAL = new GiangVienDAL();
     
-    public ArrayList<GiangVienDTO> getList(){
-        return giangVienDAL.getListGV();
+    public ArrayList<GiangVienDTO> getListGV(){
+        return svDAL.getListSV();
     }
-    
+    public void AddGiangVien(GiangVienDTO sv){
+        svDAL.AddGiangVien(sv);
+    }
+    public void UpdateGiangVien(int pID,String FiN,String LaN){
+        svDAL.UpdateGiangVien(pID, FiN, LaN);
+    }
+    public int initID(){
+        return svDAL.initID();
+    }
+    public ArrayList<GiangVienDTO> search(String s){
+        return svDAL.search(s);
+    }
 }

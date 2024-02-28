@@ -32,7 +32,7 @@ public class ThemGV_vao_khoa_hoc extends javax.swing.JFrame {
         txtTitle.setText(Title);
         txtCourseID.setEditable(false);
         txtTitle.setEditable(false);
-        list = gv.getList();
+        list = gv.getListGV();
         for (GiangVienDTO a : list) {
             cbName.addItem(a.getFirstName()+" "+a.getLastName());
             cbPersonID.addItem(Integer.toString(a.getPersonID()));

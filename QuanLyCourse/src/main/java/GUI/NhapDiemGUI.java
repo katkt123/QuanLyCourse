@@ -4,13 +4,21 @@
  */
 package GUI;
 
+import BLL.GhiDanhBLL;
 import BLL.KhoaHocBLL;
+import DTO.GhiDanhDTO;
 import DTO.KhoaHocDTO;
+import static GUI.SinhVienGUI.ed;
+import static GUI.SinhVienGUI.fn;
+import static GUI.SinhVienGUI.ln;
+import static GUI.SinhVienGUI.pid;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +38,8 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
         }
     };
+    
+        public static int courseID;
     /**
      * Creates new form NhapDiemGUI
      */
@@ -70,7 +80,7 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         jLabel1.setIcon(icon);
     }
     public void setIconScore(){
-        String imagePath = "src\\main\\java\\Image\\Refresh.png"; // 
+        String imagePath = "src\\main\\java\\Image\\Pencil.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
         jButton_Score.setIcon(icon);
     }
@@ -151,7 +161,7 @@ public class NhapDiemGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_Search, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                .addComponent(jTextField_Search, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -159,7 +169,7 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField_Search))
                 .addContainerGap())
         );
@@ -177,18 +187,20 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
-                .addComponent(jButton_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, Short.MAX_VALUE)
+                .addComponent(jButton_Score)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Score, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(jButton_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
@@ -288,8 +300,23 @@ public class NhapDiemGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
     private void jButton_ScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ScoreActionPerformed
-        // TODO add your handling code here:
-        
+        int selectedRow = jTable_KhoaHoc.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng để xem điểm.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int courseId = Integer.parseInt(jTable_KhoaHoc.getValueAt(selectedRow, 0).toString());
+            // Gọi phương thức từ lớp BLL để lấy thông tin StudentID, LastName, FirstName và Grade
+            GhiDanhBLL ghiDanhBLL = new GhiDanhBLL();
+            ArrayList<Object[]> studentGrades = ghiDanhBLL.getStudentGradesByCourseID(courseId);
+            
+            // Hiển thị form XemDiemGUI và cập nhật dữ liệu trên bảng
+            XemDiemGUI xemDiemGUI = new XemDiemGUI();
+            xemDiemGUI.updateTable1(studentGrades);
+            xemDiemGUI.setLocationRelativeTo(null);
+            xemDiemGUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            xemDiemGUI.setVisible(true);
+        }
     }//GEN-LAST:event_jButton_ScoreActionPerformed
 
 

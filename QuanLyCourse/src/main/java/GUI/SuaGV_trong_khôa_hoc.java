@@ -34,7 +34,7 @@ public class SuaGV_trong_khôa_hoc extends javax.swing.JFrame {
         txtTitle.setText(Title);
         txtCourseID.setEditable(false);
         txtTitle.setEditable(false);
-        list = gv.getList();
+        list = gv.getListGV();
         
         int i = -1;
         for (GiangVienDTO a : list) {
