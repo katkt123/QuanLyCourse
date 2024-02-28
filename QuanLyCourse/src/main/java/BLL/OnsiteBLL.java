@@ -23,6 +23,9 @@ public class OnsiteBLL {
     public void addKhoaHoc(KhoaHocOnSiteDTO kh){
         onsiteDAL.addKHos(kh);
     }
+    public void setKhoaHoc(KhoaHocOnSiteDTO kh){
+        onsiteDAL.setKHos(kh);
+    }
     
     public void delKhoaHoc(int courseID){  // nhập mã của khóa học dạng int
         onsiteDAL.delete(Integer.toString( courseID));
@@ -36,4 +39,7 @@ public class OnsiteBLL {
     public boolean isCourseIDExists(String courseID) {
         return onsiteDAL.isCourseIDExists(Integer.parseInt(courseID));
     } 
+    public KhoaHocOnSiteDTO getOnSiteCourseByID(int id){
+        return onsiteDAL.getOnSiteCourseByID(id);
+    }
 }

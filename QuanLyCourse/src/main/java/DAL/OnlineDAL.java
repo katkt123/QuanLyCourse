@@ -53,7 +53,7 @@ public class OnlineDAL {
     
      public void setKHol(KhoaHocOnlineDTO course) {
         String sql = "UPDATE onlinecourse SET ";
-        sql += "url='"+course.getURL()+"', ";
+        sql += "url='"+course.getURL()+"' ";
         sql += " WHERE CourseID="+course.getCourseID();
         System.out.println(sql);
         try {
@@ -91,5 +91,23 @@ public class OnlineDAL {
             e.printStackTrace();
         }
         return false;
+    }
+    public KhoaHocOnlineDTO getOnlineCourseByID(int courseID) {
+        KhoaHocOnlineDTO course = null;
+        String query = "SELECT URL FROM onlinecourse WHERE CourseID = ?";
+        try {
+            PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+            statement.setInt(1, courseID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                String url = rs.getString("URL");
+
+                // Tạo đối tượng KhoaHocOnlineDTO từ thông tin lấy được
+                course = new KhoaHocOnlineDTO(courseID, url);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return course;
     }
 }

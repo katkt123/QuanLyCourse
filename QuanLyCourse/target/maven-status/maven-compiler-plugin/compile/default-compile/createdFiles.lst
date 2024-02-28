@@ -53,6 +53,7 @@ GUI\SuaGV_trong_khôa_hoc$3.class
 GUI\KhoaHocGUI$4.class
 BLL\GiangVienBLL.class
 BLL\OnlineBLL.class
+GUI\AddKhoaHocGUI$10.class
 GUI\PhanCongGiangDay$4.class
 GUI\AddGiangVienGUI$1.class
 GUI\ChinhDiemGUI$2.class

@@ -6,6 +6,7 @@ package DAL;
 
 import DTO.GiangVienDTO;
 import DTO.KhoaHocDTO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,6 +91,25 @@ public class KhoaHocDAL {
         System.out.println(sql);
         JOptionPane.showMessageDialog(null, "Xóa thành công!");
     }
+    public KhoaHocDTO getCourseByID(int courseID) {
+    KhoaHocDTO course = null;
+    String query = "SELECT Title, DepartmentID, Credits FROM Course WHERE CourseID = ?";
+    try {
+        PreparedStatement statement = this.conn.getConn().prepareStatement(query);
+        statement.setInt(1, courseID);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            String title = rs.getString("Title");
+            int departmentID = rs.getInt("DepartmentID");
+            int credits = rs.getInt("Credits");
+            
+            course = new KhoaHocDTO(courseID, title, credits, departmentID);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return course;
+}
     
     
     public int initID(){

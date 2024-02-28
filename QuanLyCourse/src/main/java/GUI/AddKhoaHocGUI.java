@@ -31,7 +31,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     
     ArrayList<DepartmentDTO> arrDP = new ArrayList<DepartmentDTO>();
     
-    int[] ids = {1, 2, 4, 7};
+    
     int selectedId;
     int something;
     
@@ -39,9 +39,88 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     DePartBLL dp = new DePartBLL();
     
     int chucnang ;
+    public AddKhoaHocGUI(String id) {
+        initComponents();
+        initHere();
+        setTitle("Sửa Khóa Học");
+        TextID.setEditable(false);
+        jLabel1.setText("SỬA KHÓA HỌC");
+        
+        KhoaHocBLL kh = new KhoaHocBLL();
+        KhoaHocDTO khDTO = kh.getCourseByID(id);
+        
+        TextID.setText(id);
+        TextTitle.setText(khDTO.getTitle());
+        TextCredit.setText("" +khDTO.getCredits());
+        
+        ComboboxDPT.setSelectedItem(new DePartBLL().getDepartmentByID(khDTO.getDepartmentID()).getName());
+        OnlineBLL ol = new OnlineBLL();
+        OnsiteBLL os = new OnsiteBLL();
+        if (os.isCourseIDExists(id)){
+            ComboType.setSelectedIndex(0);
+            KhoaHocOnSiteDTO onsite = os.getOnSiteCourseByID(khDTO.getCoureID());
+            TextLoca.setText(onsite.getLocation());
+            
+            setDaysCheckbox(onsite.getDays());
+            
+            SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
+            SimpleDateFormat sdfMinute = new SimpleDateFormat("mm");
+
+            String hour = sdfHour.format(onsite.getTime());
+            String minute = sdfMinute.format(onsite.getTime());
+            TextHour.setText(hour);
+            TextMinute.setText(minute);
+        }
+        else if (ol.isCourseIDExists(id)) {
+            ComboType.setSelectedIndex(1);
+            KhoaHocOnlineDTO online = ol.getOnlineCourseByID(khDTO.getCoureID());
+            TextURL.setText(online.getURL());
+        }
+        
+        
+    }   
+    public void setDaysCheckbox(String days) {
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+        jCheckBox4.setSelected(false);
+        jCheckBox5.setSelected(false);
+        jCheckBox6.setSelected(false);
+
+        for (char c : days.toCharArray()) {
+            switch (c) {
+                case 'M':
+                    jCheckBox1.setSelected(true);
+                    break;
+                case 'T':
+                    jCheckBox2.setSelected(true);
+                    break;
+                case 'W':
+                    jCheckBox3.setSelected(true);
+                    break;
+                case 'H':
+                    jCheckBox4.setSelected(true);
+                    break;
+                case 'F':
+                    jCheckBox5.setSelected(true);
+                    break;
+                case 'S':
+                    jCheckBox6.setSelected(true);
+                    break;
+                default:
+                    // Xử lý trường hợp không hợp lệ nếu cần thiết
+                    break;
+            }
+        }
+    }
+
     
     public AddKhoaHocGUI() {
         initComponents();
+        initHere();
+        setTitle("Thêm Khóa Học");
+    }
+    private void initHere(){
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         jLabel1.setHorizontalAlignment(jLabel1.CENTER); // Đưa chữ về giữa theo chiều ngang
@@ -49,8 +128,6 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(jLabel3.CENTER); // Đưa chữ về giữa theo chiều ngang
         jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
         
-        ComboboxDPT.setSelectedIndex(-1);
-        ComboType.setSelectedIndex(-1);
         
         arrDP = dp.getListDP();
         
@@ -59,7 +136,7 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             DepartmentDTO dp = arrDP.get(i);
             int stt= i+1;
             
-            int id= dp.getDepartmentID();
+            int id = dp.getDepartmentID();
             String name = dp.getName();
             
             
@@ -72,10 +149,24 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-               selectedId = ids[ComboboxDPT.getSelectedIndex()];
+                for(int i = 0; i<arrDP.size();i++){
+                DepartmentDTO dp = arrDP.get(i);
+                int stt= i+1;
+            
+                if (dp.getName().equals(ComboboxDPT.getSelectedItem()))
+                {
+                    selectedId = dp.getDepartmentID();
+                }
+            }
+              
                
             }
         });
+        
+        
+        
+        ComboboxDPT.setSelectedIndex(0);
+        ComboType.setSelectedIndex(0);
         
         ComboType.setSelectedIndex(0);
         TextURL.setVisible(false);
@@ -126,38 +217,30 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     }
 
     public void addonsite(int id){
-        KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
-        OnsiteBLL osbll = new OnsiteBLL();
-        
-        
-       chucnang = 0;
+       KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();
+       OnsiteBLL osbll = new OnsiteBLL();      
        
        String loca = TextLoca.getText().toString();
        String gio = TextHour.getText().toString();
        String phut = TextMinute.getText().toString();
-       
        
        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
        
        LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
        Time time = Time.valueOf(localTime);
 
-       
-       
        String ngay = "";
        if (jCheckBox1.isSelected()) ngay += "M";
        if (jCheckBox2.isSelected()) ngay += "T";
        if (jCheckBox3.isSelected()) ngay += "W";
-       if (jCheckBox4.isSelected()) ngay += "TH";
+       if (jCheckBox4.isSelected()) ngay += "H";
        if (jCheckBox5.isSelected()) ngay += "F";
        if (jCheckBox6.isSelected()) ngay += "S";
-       
        
        khos.setCourseID(id);
        khos.setLocation(loca);
        khos.setTime(time);
        khos.setDays(ngay);
-       
        osbll.addKhoaHoc(khos);
     }
     
@@ -274,6 +357,12 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             }
         });
 
+        ComboboxDPT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboboxDPTActionPerformed(evt);
+            }
+        });
+
         ComboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Onsite", "Online" }));
         ComboType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,71 +402,72 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(TextID, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(TextID, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ComboboxDPT, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(TextCredit)
-                                        .addComponent(TextTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboboxDPT, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(TextURL, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TextLoca))
-                                .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(TextCredit)
+                                .addComponent(TextTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(TextURL, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TextLoca))
+                        .addComponent(ComboType, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TextHour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(TextHour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jCheckBox2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jCheckBox2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox6))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TextMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(321, Short.MAX_VALUE))
+                                .addComponent(jCheckBox3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TextMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(309, 309, 309))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(315, 315, 315))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +521,9 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ComboboxDPT, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addComponent(jButton_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -461,33 +551,93 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
 
     private void jButton_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_okActionPerformed
         
-        courseid = khbll.initID() + 1;
+        if (getTitle().equals("Thêm Khóa Học")) {
+            courseid = khbll.initID() + 1;
         
-        int id = Integer.parseInt(TextID.getText().toString());
-        String tt = TextTitle.getText().toString();
-        int cr = Integer.parseInt(TextCredit.getText().toString());
-        int dp = selectedId;
-        
-        if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
-            KhoaHocDTO kh = new KhoaHocDTO();
-            kh.setCoureID(id);
-            kh.setTitle(tt);
-            kh.setCredits(cr);
-            kh.setDepartmentID(dp);
-            khbll.addKhoaHoc(kh);
-            if (ComboType.getSelectedIndex() == 0){
-                addonsite(id);
-            }if(ComboType.getSelectedIndex() == 1){
-                addonline(id);
+            int id = Integer.parseInt(TextID.getText().toString());
+            String tt = TextTitle.getText().toString();
+            int cr = Integer.parseInt(TextCredit.getText().toString());
+            int dp = selectedId;
+
+            if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
+                KhoaHocDTO kh = new KhoaHocDTO();
+                kh.setCoureID(id);
+                kh.setTitle(tt);
+                kh.setCredits(cr);
+                kh.setDepartmentID(dp);
+                khbll.addKhoaHoc(kh);
+                if (ComboType.getSelectedIndex() == 0 && !TextLoca.getText().isEmpty()){
+                    addonsite(id);
+                }if(ComboType.getSelectedIndex() == 1 && !TextURL.getText().isEmpty()){
+                    addonline(id);
+                }
+
+                JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-            JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        
+            int id = Integer.parseInt(TextID.getText().toString());
+            String tt = TextTitle.getText().toString();
+            int cr = Integer.parseInt(TextCredit.getText().toString());
+            int dp = selectedId;
+
+            if (!"".equals(id) && !"".equals(tt) && !"".equals(cr) && !"".equals(dp)) {
+                KhoaHocDTO kh = new KhoaHocDTO();
+                kh.setCoureID(id);
+                kh.setTitle(tt);
+                kh.setCredits(cr);
+                kh.setDepartmentID(dp);
+                khbll.setKhoaHoc(kh);
+                
+                OnsiteBLL osbll = new OnsiteBLL();   
+                OnlineBLL olbll = new OnlineBLL();
+                
+                if (ComboType.getSelectedIndex() == 0){
+                    KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();                
+
+                    String loca = TextLoca.getText().toString();
+
+                    LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
+                    Time time = Time.valueOf(localTime);
+
+                    String ngay = "";
+                    if (jCheckBox1.isSelected()) ngay += "M";
+                    if (jCheckBox2.isSelected()) ngay += "T";
+                    if (jCheckBox3.isSelected()) ngay += "W";
+                    if (jCheckBox4.isSelected()) ngay += "H";
+                    if (jCheckBox5.isSelected()) ngay += "F";
+                    if (jCheckBox6.isSelected()) ngay += "S";
+
+                    khos.setCourseID(id);
+                    khos.setLocation(loca);
+                    khos.setTime(time);
+                    khos.setDays(ngay);
+                    
+                    if (olbll.isCourseIDExists(id)) {
+                        olbll.delKhoaHoc(id);
+                        osbll.addKhoaHoc(khos);
+                    } else if (osbll.isCourseIDExists(id))
+                        osbll.setKhoaHoc(khos);
+                    else 
+                        osbll.addKhoaHoc(khos);
+                }if(ComboType.getSelectedIndex() == 1){
+                    KhoaHocOnlineDTO khol = new KhoaHocOnlineDTO();
+
+                    String url = TextURL.getText().toString();
+                    khol.setURL(url);
+                    khol.setCourseID(id);
+                    if (osbll.isCourseIDExists(id)) {
+                        osbll.delKhoaHoc(id);
+                        olbll.addKhoaHoc(khol);
+                    } else if (olbll.isCourseIDExists(id))
+                        olbll.setKhoaHoc(khol);
+                    else 
+                        olbll.addKhoaHoc(khol);
+                }
+            }
+        }  
     }//GEN-LAST:event_jButton_okActionPerformed
 
     private void TextCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextCreditActionPerformed
@@ -505,6 +655,10 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
     private void ComboTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboTypeActionPerformed
+
+    private void ComboboxDPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboboxDPTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboboxDPTActionPerformed
 
     /**
      * @param args the command line arguments

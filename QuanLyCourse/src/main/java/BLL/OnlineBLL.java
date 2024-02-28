@@ -5,8 +5,6 @@
 package BLL;
 
 import DAL.OnlineDAL;
-import DAL.OnsiteDAL;
-import DTO.KhoaHocOnSiteDTO;
 import DTO.KhoaHocOnlineDTO;
 import java.util.ArrayList;
 
@@ -23,7 +21,9 @@ public class OnlineBLL {
     public void addKhoaHoc(KhoaHocOnlineDTO kh){
         onlineDAL.addKHol(kh);
     }
-    
+    public void setKhoaHoc(KhoaHocOnlineDTO kh){
+        onlineDAL.setKHol(kh);
+    }
     public void delKhoaHoc(int courseID){  // nhập mã của khóa học dạng int
         onlineDAL.deleteKHol(Integer.toString( courseID));
     }
@@ -36,4 +36,7 @@ public class OnlineBLL {
     public boolean isCourseIDExists(String courseID) {
         return onlineDAL.isCourseIDExists(Integer.parseInt(courseID));
     } 
+    public KhoaHocOnlineDTO getOnlineCourseByID(int id){
+        return onlineDAL.getOnlineCourseByID(id);
+    }
 }
