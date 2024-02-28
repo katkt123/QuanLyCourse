@@ -73,7 +73,7 @@ public class OnlineDAL {
             Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(sql);
-        JOptionPane.showMessageDialog(null, "Xóa thành công!");
+        
     } 
      
     public boolean isCourseIDExists(int courseID) {

@@ -326,6 +326,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
 
         AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI();
         khoaHocGUI.setVisible(true);
+        
     }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jTextField_SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusGained
@@ -396,6 +397,8 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                     os.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
 
                 khBLL.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+                loadKH();
+                JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 
             }
             

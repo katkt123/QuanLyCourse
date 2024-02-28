@@ -89,7 +89,7 @@ public class KhoaHocDAL {
             Logger.getLogger(KhoaHocDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(sql);
-        JOptionPane.showMessageDialog(null, "Xóa thành công!");
+        
     }
     public KhoaHocDTO getCourseByID(int courseID) {
     KhoaHocDTO course = null;
