@@ -95,6 +95,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         setIconEdit();
         setIconDelete();
         setIconRefresh();
+        setIconSearch();
         loadKH();
     }
     
@@ -381,14 +382,19 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn hàng cần xóa! ");
         } else {
-            OnlineBLL ol = new OnlineBLL();
-            OnsiteBLL os = new OnsiteBLL();
-            if (ol.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
-                ol.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
-            else if (os.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
-                os.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+            if (JOptionPane.showConfirmDialog(jScrollPane1, "Bạn có chắc muốn xóa khóa học không ?") == JOptionPane.YES_OPTION){
+                
+                OnlineBLL ol = new OnlineBLL();
+                OnsiteBLL os = new OnsiteBLL();
+                if (ol.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
+                    ol.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+                else if (os.isCourseIDExists(jTable_KhoaHoc.getValueAt(i, 0).toString()))
+                    os.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+
+                khBLL.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+                
+            }
             
-            khBLL.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
         }
     }//GEN-LAST:event_jButton_DeleteActionPerformed
 
