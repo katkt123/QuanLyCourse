@@ -326,6 +326,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
 
         AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI();
         khoaHocGUI.setVisible(true);
+        
     }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jTextField_SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_SearchFocusGained
@@ -363,11 +364,20 @@ public class KhoaHocGUI extends javax.swing.JPanel {
             int id= em.getCoureID();
             String tt = em.getTitle();
             int cr= em.getCredits();
-            int dp= em.getDepartmentID();
+            int dpid = em.getDepartmentID();
             
+            String namedp = "a";
             
+            for(int j = 0; j < arrDP.size(); j++){
+                DepartmentDTO dpdto = arrDP.get(j);
+                int stt2 = i+1;
+                if (dpdto.getDepartmentID() == dpid)
+                {
+                    namedp = dpdto.getName();
+                }
+            }
 
-            Object[] row = {id,tt,cr,dp};
+            Object[] row = {id,tt,cr,namedp};
             modelKH.addRow(row);
         }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
@@ -387,6 +397,8 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                     os.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
 
                 khBLL.delKhoaHoc(jTable_KhoaHoc.getValueAt(i, 0).toString());
+                loadKH();
+                JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 
             }
             
