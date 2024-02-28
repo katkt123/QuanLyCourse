@@ -598,10 +598,9 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
                     KhoaHocOnSiteDTO khos = new KhoaHocOnSiteDTO();                
 
                     String loca = TextLoca.getText().toString();
-
-                    LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), Integer.parseInt(TextMinute.getText().toString()));
+                    LocalTime localTime = LocalTime.of( Integer.parseInt(TextHour.getText().toString()), 
+                            Integer.parseInt(TextMinute.getText().toString()));
                     Time time = Time.valueOf(localTime);
-
                     String ngay = "";
                     if (jCheckBox1.isSelected()) ngay += "M";
                     if (jCheckBox2.isSelected()) ngay += "T";

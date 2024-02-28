@@ -134,7 +134,6 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         for(int i = 0; i<arrKhoaHoc.size();i++){
             KhoaHocDTO kh= arrKhoaHoc.get(i);
             int stt= i+1;
-            
             int id= kh.getCoureID();
             String tt = kh.getTitle();
             int cr = kh.getCredits();
@@ -142,17 +141,13 @@ public class KhoaHocGUI extends javax.swing.JPanel {
             String namedp = "a";
             
             for(int j = 0; j < arrDP.size(); j++){
-                
                 DepartmentDTO dpdto = arrDP.get(j);
-                
                 int stt2 = i+1;
-            
                 if (dpdto.getDepartmentID() == dpid)
                 {
                     namedp = dpdto.getName();
                 }
             }
-        
             Object[] row = {id,tt,cr,namedp};
             modelKH.addRow(row);
         }
