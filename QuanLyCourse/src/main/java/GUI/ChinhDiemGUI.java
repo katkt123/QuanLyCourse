@@ -18,6 +18,7 @@ public class ChinhDiemGUI extends javax.swing.JFrame {
      */
     public ChinhDiemGUI() {
         initComponents();
+        jLabel4.setHorizontalAlignment(jLabel4.CENTER); // Đưa chữ về giữa theo chiều ngang
     }
     
 

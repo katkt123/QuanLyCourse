@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class AddSinhVienGUI extends javax.swing.JFrame {
     private int id;
     SinhVienBLL svBLL = new SinhVienBLL();
+    SinhVienGUI svGUI = new SinhVienGUI();
     /**
      * Creates new form AddSinhVienGUI
      */
@@ -180,7 +181,9 @@ public class AddSinhVienGUI extends javax.swing.JFrame {
             sv.setEnrollmentDate(jTextField_ED.getText());
             svBLL.AddSinhVien(sv);
             
+            
             JOptionPane.showMessageDialog(null, "Thêm thành công !!!", "Thêm sinh viên", JOptionPane.INFORMATION_MESSAGE);
+            svGUI.Refresh();
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Dữ liệu chưa được nhập!!", "Thông tin lỗi", JOptionPane.INFORMATION_MESSAGE);

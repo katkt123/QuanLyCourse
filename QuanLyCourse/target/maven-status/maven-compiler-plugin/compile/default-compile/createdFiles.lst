@@ -98,6 +98,7 @@ GUI\GiangVienGUI$3.class
 DAL\DepartDAL.class
 GUI\SinhVienGUI$3.class
 GUI\AddKhoaHocGUI$7.class
+GUI\NhapDiemGUI$6.class
 GUI\XemDiemGUI$3.class
 GUI\PhanCongGiangDay$3.class
 GUI\SuaGV_trong_khôa_hoc.class

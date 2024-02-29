@@ -40,12 +40,12 @@ public class GiangVienDAL {
             + sv.getPersonID() + "','" + sv.getFirstName() + "','" + sv.getLastName() + "',"
             + "CURRENT_TIMESTAMP);";
 
-    try {
-        this.conn.getState().executeUpdate(query);
-        System.out.println("Thêm thành công !!!");
-    } catch (Exception e) {
-        System.out.println("Add Sinh Vien: " + e);
-    }
+        try {
+            this.conn.getState().executeUpdate(query);
+            System.out.println("Thêm thành công !!!");
+        } catch (Exception e) {
+            System.out.println("Add Sinh Vien: " + e);
+        }
     }
     public void UpdateGiangVien(int pID, String FiN, String LaN){
         String query = "UPDATE person SET FirstName='" + FiN + "', LastName='" + LaN + "' WHERE PersonID='" + pID + "';";

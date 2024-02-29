@@ -331,7 +331,9 @@ public class SinhVienGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         loadSV();
     }//GEN-LAST:event_jButton_RefreshActionPerformed
-
+    public void Refresh(){
+        loadSV();
+    }
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
         // TODO add your handling code here:
         String searchText = jTextField_Search.getText().trim();

@@ -70,7 +70,7 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         
         setIconSearch();
         setIconScore();
-        
+        setIconRefresh();
         loadKhoaHoc();
     }
 
@@ -78,6 +78,11 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         String imagePath = "src\\main\\java\\Image\\Search.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jLabel1.setIcon(icon);
+    }
+    public void setIconRefresh(){
+        String imagePath = "src\\main\\java\\Image\\Refresh.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+        jButton_Refresh.setIcon(icon);
     }
     public void setIconScore(){
         String imagePath = "src\\main\\java\\Image\\Pencil.png"; // 
@@ -117,6 +122,7 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTextField_Search = new javax.swing.JTextField();
         jButton_Score = new javax.swing.JButton();
+        jButton_Refresh = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_KhoaHoc = new javax.swing.JTable();
@@ -180,6 +186,12 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             }
         });
 
+        jButton_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,8 +199,10 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, Short.MAX_VALUE)
-                .addComponent(jButton_Score)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
+                .addComponent(jButton_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,9 +211,11 @@ public class NhapDiemGUI extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
-                        .addComponent(jButton_Score, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton_Score))))
                 .addContainerGap())
         );
 
@@ -319,8 +335,14 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton_ScoreActionPerformed
 
+    private void jButton_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RefreshActionPerformed
+        // TODO add your handling code here:
+        loadKhoaHoc();
+    }//GEN-LAST:event_jButton_RefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_Score;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

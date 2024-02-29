@@ -47,7 +47,7 @@ public class GiangVienGUI extends javax.swing.JPanel {
         modelSV.addColumn("PersonID");
         modelSV.addColumn("FirstName");
         modelSV.addColumn("LastName");
-        modelSV.addColumn("EnrollmentDate");
+        modelSV.addColumn("HireDate");
         
         
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
@@ -97,7 +97,7 @@ public class GiangVienGUI extends javax.swing.JPanel {
             modelSV.removeRow(i);
         for(int i = 0; i<arrGiangVien.size();i++){
             GiangVienDTO em= arrGiangVien.get(i);
-            int stt= i+1;
+            
             int id= em.getPersonID();
             String first = em.getFirstName();
             String last = em.getLastName();
@@ -355,21 +355,22 @@ public class GiangVienGUI extends javax.swing.JPanel {
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
         // TODO add your handling code here:
         String searchText = jTextField_Search.getText().trim();
-
+        
         // Gọi hàm search với nội dung tìm kiếm
         ArrayList<GiangVienDTO> searchResult = gvBLL.search(searchText);
-
+        
+        
+        
         for(int i = modelSV.getRowCount()-1;i>=0;i--)
             modelSV.removeRow(i);
-        for(int i = 0; i<arrGiangVien.size();i++){
-            GiangVienDTO em= arrGiangVien.get(i);
-            int stt= i+1;
+        for(int i = 0; i<searchResult.size();i++){
+            GiangVienDTO em= searchResult.get(i);
+            
             int id= em.getPersonID();
             String first = em.getFirstName();
             String last = em.getLastName();
             String hire = em.getHireDate();
-            
-        
+           
             Object[] row = {id,first,last,hire};
             modelSV.addRow(row);
         }

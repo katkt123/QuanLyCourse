@@ -38,7 +38,7 @@ public class Main extends javax.swing.JFrame {
         addComponent("Khóa Học",new KhoaHocGUI(),"Course.png");
         addComponent("Sinh Viên",new SinhVienGUI(),"Student.png");
         addComponent("Giảng Viên",new GiangVienGUI(),"Teacher.png");
-        addComponent("Khoa",new SinhVienGUI(),"Faculty.png");
+//        addComponent("Khoa",new SinhVienGUI(),"Faculty.png");
         addComponent("Phân Công",new PhanCongGiangDay(),"Pen.png");
         addComponent("Nhập Điểm",new NhapDiemGUI(),"Score.png");
         Event();
@@ -126,9 +126,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản Lý Course");
-        setMaximumSize(new java.awt.Dimension(1400, 800));
         setMinimumSize(new java.awt.Dimension(1200, 700));
-        setPreferredSize(new java.awt.Dimension(1360, 732));
 
         toolsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -143,7 +141,7 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 711, Short.MAX_VALUE)
         );
 
-        mainDisplay.setBackground(new java.awt.Color(255, 102, 102));
+        mainDisplay.setBackground(new java.awt.Color(255, 255, 255));
         mainDisplay.setMaximumSize(new java.awt.Dimension(950, 700));
         mainDisplay.setMinimumSize(new java.awt.Dimension(950, 700));
         mainDisplay.setPreferredSize(new java.awt.Dimension(950, 700));
@@ -200,6 +198,8 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
+                KhoaHocGUI a = new KhoaHocGUI();
+                a.setVisible(true);
             }
         });
     }
