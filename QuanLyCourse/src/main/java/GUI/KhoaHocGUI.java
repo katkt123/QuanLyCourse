@@ -18,9 +18,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -82,15 +85,19 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         jTable_KhoaHoc.addMouseListener(new MouseAdapter() {
         	@Override
                 public void mousePressed(MouseEvent mouseEvent) {
-        		if (mouseEvent.getClickCount() == 2 ) {
-                            int row = jTable_KhoaHoc.getSelectedRow();
-                            int idkh = (int) jTable_KhoaHoc.getValueAt(row, 0);
-                            String tt = jTable_KhoaHoc.getValueAt(row, 1).toString();
-                            int cr = (int) jTable_KhoaHoc.getValueAt(row, 2);
-                            int dp = (int) jTable_KhoaHoc.getValueAt(row, 3);
-                            System.out.println("ID: " + idkh + "TT: " + tt + "CR: " + cr + "DP: " + dp);
-                        }		
-        	}
+                    if (mouseEvent.getClickCount() == 2 ) {
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(thisPanel());
+                        String idKh = jTable_KhoaHoc.getValueAt(jTable_KhoaHoc.getSelectedRow(), 0).toString();
+                        KhoaHocDTO khdto = khBLL.getCourseByID(idKh);
+                        String dialog_text = "";
+                        dialog_text += "ID: "+ khdto.getCoureID() + "\n";
+                        dialog_text += "Title: "+ khdto.getTitle()+ "\n";
+                        dialog_text += "Credits: "+ khdto.getCredits()+ "\n";
+                        dialog_text += "DepartmentID: "+ khdto.getDepartmentID()+ "\n \n";
+                        JDialogChiTiet dialog = new JDialogChiTiet(parentFrame, "Chi tiết Khóa học", dialog_text);
+                        dialog.showDialog();
+                    }		
+                }
         });
         
         setIconAdd();
@@ -99,6 +106,9 @@ public class KhoaHocGUI extends javax.swing.JPanel {
         setIconRefresh();
         setIconSearch();
         loadKH();
+    }
+    public JPanel thisPanel(){
+        return this;
     }
     
      public void setIconAdd(){
@@ -316,12 +326,12 @@ public class KhoaHocGUI extends javax.swing.JPanel {
 
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
         int row = jTable_KhoaHoc.getSelectedRow();
-        if (row == -1) 
+        if (row == -1)
             JOptionPane.showMessageDialog(null, "Vui lòng chọn Khóa học cần sửa! ");
         else {        
             AddKhoaHocGUI khoaHocGUI = new AddKhoaHocGUI(jTable_KhoaHoc.getValueAt(row, 0).toString());
             khoaHocGUI.setVisible(true);
-        }
+        }                               
     }//GEN-LAST:event_jButton_EditActionPerformed
 
     private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed

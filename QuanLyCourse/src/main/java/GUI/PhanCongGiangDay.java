@@ -221,7 +221,8 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             int PersonID = em.getPersonID();
             String Name = em.getName();
             
-            if (Integer.toString(CourseID).contains(CourseID_str) && title.contains(Title_str) && Integer.toString(PersonID).contains(PersonID_str) && Name.contains(Name_str)){
+            if (Integer.toString(CourseID).toLowerCase().contains(CourseID_str.toLowerCase()) && title.toLowerCase().contains(Title_str) 
+                    && Integer.toString(PersonID).toLowerCase().contains(PersonID_str.toLowerCase()) && Name.toLowerCase().contains(Name_str.toLowerCase())){
                 if(rdbTatCa.isSelected()){
                     if (PersonID != 0){
                     Object[] row = {CourseID,title, PersonID, Name};
