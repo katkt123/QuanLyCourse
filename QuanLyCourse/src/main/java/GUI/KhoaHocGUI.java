@@ -19,11 +19,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -350,49 +348,38 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     private void jTextField_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_SearchActionPerformed
-    public TableRowSorter Search_table(javax.swing.JTable table) {	
-        DefaultTableModel model = (DefaultTableModel) jTable_KhoaHoc.getModel();
-        TableRowSorter sorter = new TableRowSorter<>(model);
-        table.setRowSorter(sorter);
-        sorter.setRowFilter(null);
-        return sorter;
-    }
-    public void Search_String(String name) {		
-        RowFilter<DefaultTableModel, Object> filter = RowFilter.regexFilter("(?i)" + name);
-        Search_table(jTable_KhoaHoc).setRowFilter(name == "" ? null : filter);
-    }
+
     private void jTextField_SearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_SearchKeyReleased
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         String searchText = jTextField_Search.getText().trim();
-        Search_String(searchText);
-//
-//        // Gọi hàm search với nội dung tìm kiếm
-//        ArrayList<KhoaHocDTO> searchResult = khBLL.search(searchText);
-//
-//        for(int i = modelKH.getRowCount()-1;i>=0;i--)
-//        modelKH.removeRow(i);
-//        for(int i = 0; i<searchResult.size();i++){
-//            KhoaHocDTO em = searchResult.get(i);
-//            int stt= i+1;
-//            int id= em.getCoureID();
-//            String tt = em.getTitle();
-//            int cr= em.getCredits();
-//            int dpid = em.getDepartmentID();
-//            
-//            String namedp = "a";
-//            
-//            for(int j = 0; j < arrDP.size(); j++){
-//                DepartmentDTO dpdto = arrDP.get(j);
-//                int stt2 = i+1;
-//                if (dpdto.getDepartmentID() == dpid)
-//                {
-//                    namedp = dpdto.getName();
-//                }
-//            }
-//
-//            Object[] row = {id,tt,cr,namedp};
-//            modelKH.addRow(row);
-//        }
+
+        // Gọi hàm search với nội dung tìm kiếm
+        ArrayList<KhoaHocDTO> searchResult = khBLL.search(searchText);
+
+        for(int i = modelKH.getRowCount()-1;i>=0;i--)
+        modelKH.removeRow(i);
+        for(int i = 0; i<searchResult.size();i++){
+            KhoaHocDTO em = searchResult.get(i);
+            int stt= i+1;
+            int id= em.getCoureID();
+            String tt = em.getTitle();
+            int cr= em.getCredits();
+            int dpid = em.getDepartmentID();
+            
+            String namedp = "a";
+            
+            for(int j = 0; j < arrDP.size(); j++){
+                DepartmentDTO dpdto = arrDP.get(j);
+                int stt2 = i+1;
+                if (dpdto.getDepartmentID() == dpid)
+                {
+                    namedp = dpdto.getName();
+                }
+            }
+
+            Object[] row = {id,tt,cr,namedp};
+            modelKH.addRow(row);
+        }
     }//GEN-LAST:event_jTextField_SearchKeyReleased
 
     private void jButton_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DeleteActionPerformed
