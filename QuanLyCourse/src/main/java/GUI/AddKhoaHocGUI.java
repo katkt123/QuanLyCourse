@@ -555,6 +555,11 @@ public class AddKhoaHocGUI extends javax.swing.JFrame {
             courseid = khbll.initID() + 1;
         
             int id = Integer.parseInt(TextID.getText().toString());
+            
+            if (khbll.getCourseByID(id) != null){
+                JOptionPane.showMessageDialog(null, "ID đã tồn tại! ");
+                return;
+            }
             String tt = TextTitle.getText().toString();
             int cr = Integer.parseInt(TextCredit.getText().toString());
             int dp = selectedId;
