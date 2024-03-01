@@ -4,15 +4,26 @@
  */
 package GUI;
 
+import BLL.DePartBLL;
+import BLL.GhiDanhBLL;
+import BLL.GiangVienBLL;
 import BLL.KhoaHocBLL;
+import BLL.OnlineBLL;
+import BLL.OnsiteBLL;
 import BLL.PhanCongBLL;
+import DTO.DepartmentDTO;
+import DTO.GiangVienDTO;
 import DTO.PhanCongDTO;
 import DTO.KhoaHocDTO;
+import DTO.KhoaHocOnSiteDTO;
+import DTO.KhoaHocOnlineDTO;
 import GUI_Custom_Table_PC.TableActionCellEditor;
 import GUI_Custom_Table_PC.TableActionCellRender;
 import GUI_Custom_Table_PC.TableActionEvent;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
@@ -20,8 +31,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.RootPaneUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -38,6 +51,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
     private PhanCongBLL phanCongBLL = new PhanCongBLL();
     
     private ArrayList<PhanCongDTO> listHTPC = new ArrayList<>();
+    private ArrayList<GiangVienDTO> listGV = new ArrayList<>();
     
     DateTimeFormatter StartDateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -85,16 +99,16 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         }
         
         CustomActionButton();
-//        setIconRefresh();
+        setIconRefresh();
         loadPC();
               
     
     }
-//    public void setIconRefresh(){
-//        String imagePath = "src\\main\\java\\Image\\refresh_pc.png"; // 
-//        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
-//        btnRefresh.setIcon(icon);
-//    }
+    public void setIconRefresh(){
+        String imagePath = "src\\main\\java\\Image\\refresh_pc.png"; // 
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+        btnRefresh.setIcon(icon);
+    }
     public void setIconXemChiTiet(){
         
     }
@@ -106,6 +120,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
          
         // Thực hiện lấy dữ liệu
         listHTPC = phanCongBLL.getListHienThiPhanCong();
+        listGV = new GiangVienBLL().getListGV();
         
         // Xóa các hàng đã có
         modelPC.setRowCount(0);
@@ -128,6 +143,89 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             }
             
         }
+        
+                jTable_PhanCong.addMouseListener(new MouseAdapter() {
+        	@Override
+                public void mousePressed(MouseEvent mouseEvent) {
+                    if (mouseEvent.getClickCount() == 2 ) {
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(jScrollPane1);
+                        String idKh = jTable_PhanCong.getValueAt(jTable_PhanCong.getSelectedRow(), 0).toString();
+                        KhoaHocDTO khdto = khoaHocBLL.getCourseByID(idKh);
+                        String dialog_text = "";
+                        // hiện thông tin cơ bảng của khóa học
+                        dialog_text += "--Course INFO--\n";
+                        dialog_text += "ID: "+ khdto.getCoureID() + "\n";
+                        dialog_text += "Title: "+ khdto.getTitle()+ "\n";
+                        dialog_text += "Credits: "+ khdto.getCredits()+ "\n";
+                        dialog_text += "DepartmentID: "+ khdto.getDepartmentID()+ "\n \n";
+                        
+                        //hiện thông tin của CourseInstructor
+                        dialog_text += "--Course Instructor--\n";
+                        GiangVienBLL gvBLL = new GiangVienBLL();
+                        GiangVienDTO gvdto = new GiangVienDTO();
+                        for (PhanCongDTO s : listHTPC){
+                            if (s.getCourseID()==Integer.parseInt(idKh)){
+                                dialog_text += "PersonID: " + s.getPersonID() + "\n";
+                                dialog_text += "Name: " + s.getName() +"\n \n";
+                            }
+                        }
+                        
+                                
+                        // hiện thông tin của department
+                        DepartmentDTO dpart = new DePartBLL().getDepartmentByID(khdto.getDepartmentID());
+                        dialog_text += "--Department INFO--\n";
+                        dialog_text += "Name: " + dpart.getName() ;
+                        dialog_text += "\nBudget: " + dpart.getBudget();
+                        dialog_text += "\nAdministrator: " + dpart.getAdministrator(); 
+                        dialog_text += "\n\n";
+                         // hiện thông tin của online hoặc onsite nếu có
+                        OnlineBLL onlbll = new OnlineBLL();
+                        OnsiteBLL onsbll = new OnsiteBLL();
+                        if (onlbll.isCourseIDExists(idKh)){
+                            dialog_text += "--Online Course INFO--\n";
+                            KhoaHocOnlineDTO khol = onlbll.getOnlineCourseByID(idKh);
+                            dialog_text += "URL: " + khol.getURL() + "\n\n";
+                        } else if (onsbll.isCourseIDExists(idKh)){
+                            dialog_text += "--Onsite Course INFO--\n";
+                            KhoaHocOnSiteDTO khos = onsbll.getOnSiteCourseByID(idKh);
+                            dialog_text += "Location: " + khos.getLocation() + "\n";
+                            dialog_text += "Day: ";
+                            for (char c : khos.getDays().toCharArray()) {
+                                switch (c) {
+                                    case 'M':
+                                        dialog_text += "Monday "; break;
+                                    case 'T':
+                                        dialog_text += "Tuesday "; break;
+                                    case 'W':
+                                        dialog_text += "Wednesday "; break;
+                                    case 'H':
+                                        dialog_text += "Thursday "; break;
+                                    case 'F':
+                                        dialog_text += "Friday "; break;
+                                    case 'S':
+                                        dialog_text += "Saturday "; break;
+                                    default:
+                                        // Xử lý trường hợp không hợp lệ nếu cần thiết
+                                        break;
+                                }
+                            }
+                            dialog_text += "\nTime: " + khos.getTime().toString() + "\n\n";
+                        }
+                        
+                        // các thông tin về việc ghi danh
+                        dialog_text +=  String.format("%-15s%-15s%-15s%-15s\n","EnrollmentID","CourseID","StudentID","Grade");
+                        dialog_text += "-------------------------------------------------------\n";
+                        // Duyệt qua danh sách và thêm thông tin vào chuỗi
+                        for (Object[] ghiDanh : new GhiDanhBLL().getStudentGradesByCourseID(khdto.getCoureID())) {
+                            dialog_text += String.format("%-15s%-15s%-15s%-15s\n", ghiDanh[0], ghiDanh[1],ghiDanh[2], ghiDanh[3]);
+//                            dialogText.append("EnrollmentID: ").append(String.format("%-13d\t%-9d\t%-10d\t%.1f%n",
+//                                            ghiDanh[0], ghiDanh[1],ghiDanh[2], ghiDanh[3])).append(", ");
+                        }
+                        JDialogChiTiet dialog = new JDialogChiTiet(parentFrame, "Chi tiết Khóa học", dialog_text);
+                        dialog.showDialog();
+                    }		
+                }
+        });
     }
      
     public void CustomActionButton(){
@@ -313,7 +411,6 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         txtPersonID = new javax.swing.JTextField();
         txtTitle = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_PhanCong = new javax.swing.JTable();
 
@@ -433,11 +530,6 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 155, 155));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Xem chi tiet");
-
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -465,9 +557,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(rdbDa)
                     .addComponent(rdbTatCa))
                 .addGap(0, 75, Short.MAX_VALUE)
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
             .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -498,9 +588,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                                     .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(17, 56, Short.MAX_VALUE)
                         .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addContainerGap())
@@ -639,7 +727,6 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
