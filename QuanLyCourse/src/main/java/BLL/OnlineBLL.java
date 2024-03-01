@@ -39,4 +39,7 @@ public class OnlineBLL {
     public KhoaHocOnlineDTO getOnlineCourseByID(int id){
         return onlineDAL.getOnlineCourseByID(id);
     }
+    public KhoaHocOnlineDTO getOnlineCourseByID(String id){
+        return onlineDAL.getOnlineCourseByID(Integer.parseInt(id));
+    }
 }

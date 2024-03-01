@@ -5,12 +5,18 @@
 package GUI;
 
 import BLL.DePartBLL;
+import BLL.GhiDanhBLL;
+import BLL.GiangVienBLL;
 import BLL.KhoaHocBLL;
 import BLL.OnlineBLL;
 import BLL.OnsiteBLL;
 import BLL.SinhVienBLL;
 import DTO.DepartmentDTO;
+import DTO.GhiDanhDTO;
+import DTO.GiangVienDTO;
 import DTO.KhoaHocDTO;
+import DTO.KhoaHocOnSiteDTO;
+import DTO.KhoaHocOnlineDTO;
 import DTO.SinhVienDTO;
 import java.awt.Font;
 import java.awt.Image;
@@ -90,16 +96,76 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                         String idKh = jTable_KhoaHoc.getValueAt(jTable_KhoaHoc.getSelectedRow(), 0).toString();
                         KhoaHocDTO khdto = khBLL.getCourseByID(idKh);
                         String dialog_text = "";
+                        // hiện thông tin cơ bảng của khóa học
+                        dialog_text += "--Course INFO--\n";
                         dialog_text += "ID: "+ khdto.getCoureID() + "\n";
                         dialog_text += "Title: "+ khdto.getTitle()+ "\n";
                         dialog_text += "Credits: "+ khdto.getCredits()+ "\n";
                         dialog_text += "DepartmentID: "+ khdto.getDepartmentID()+ "\n \n";
+                        
+                        //hiện thông tin của CourseInstructor
+                        dialog_text += "--Course Instructor--\n";
+                        GiangVienBLL gvBLL = new GiangVienBLL();
+                        GiangVienDTO gvdto = new GiangVienDTO();
+//                        for (GiangVienDTO t : gvBLL.getListGV()){
+//                            if (t.getPersonID() == )
+//                        }
+                        
+                        // hiện thông tin của department
+                        DepartmentDTO dpart = new DePartBLL().getDepartmentByID(khdto.getDepartmentID());
+                        dialog_text += "--Department INFO--\n";
+                        dialog_text += "Name: " + dpart.getName() ;
+                        dialog_text += "\nBudget: " + dpart.getBudget();
+                        dialog_text += "\nAdministrator: " + dpart.getAdministrator(); 
+                        dialog_text += "\n\n";
+                         // hiện thông tin của online hoặc onsite nếu có
+                        OnlineBLL onlbll = new OnlineBLL();
+                        OnsiteBLL onsbll = new OnsiteBLL();
+                        if (onlbll.isCourseIDExists(idKh)){
+                            dialog_text += "--Online Course INFO--\n";
+                            KhoaHocOnlineDTO khol = onlbll.getOnlineCourseByID(idKh);
+                            dialog_text += "URL: " + khol.getURL() + "\n\n";
+                        } else if (onsbll.isCourseIDExists(idKh)){
+                            dialog_text += "--Onsite Course INFO--\n";
+                            KhoaHocOnSiteDTO khos = onsbll.getOnSiteCourseByID(idKh);
+                            dialog_text += "Location: " + khos.getLocation() + "\n";
+                            dialog_text += "Day: ";
+                            for (char c : khos.getDays().toCharArray()) {
+                                switch (c) {
+                                    case 'M':
+                                        dialog_text += "Monday "; break;
+                                    case 'T':
+                                        dialog_text += "Tuesday "; break;
+                                    case 'W':
+                                        dialog_text += "Wednesday "; break;
+                                    case 'H':
+                                        dialog_text += "Thursday "; break;
+                                    case 'F':
+                                        dialog_text += "Friday "; break;
+                                    case 'S':
+                                        dialog_text += "Saturday "; break;
+                                    default:
+                                        // Xử lý trường hợp không hợp lệ nếu cần thiết
+                                        break;
+                                }
+                            }
+                            dialog_text += "\nTime: " + khos.getTime().toString() + "\n\n";
+                        }
+                        
+                        // các thông tin về việc ghi danh
+                        dialog_text +=  String.format("%-15s%-15s%-15s%-15s\n","EnrollmentID","CourseID","StudentID","Grade");
+                        dialog_text += "-------------------------------------------------------\n";
+                        // Duyệt qua danh sách và thêm thông tin vào chuỗi
+                        for (Object[] ghiDanh : new GhiDanhBLL().getStudentGradesByCourseID(khdto.getCoureID())) {
+                            dialog_text += String.format("%-15s%-15s%-15s%-15s\n", ghiDanh[0], ghiDanh[1],ghiDanh[2], ghiDanh[3]);
+//                            dialogText.append("EnrollmentID: ").append(String.format("%-13d\t%-9d\t%-10d\t%.1f%n",
+//                                            ghiDanh[0], ghiDanh[1],ghiDanh[2], ghiDanh[3])).append(", ");
+                        }
                         JDialogChiTiet dialog = new JDialogChiTiet(parentFrame, "Chi tiết Khóa học", dialog_text);
                         dialog.showDialog();
                     }		
                 }
         });
-        
         setIconAdd();
         setIconEdit();
         setIconDelete();

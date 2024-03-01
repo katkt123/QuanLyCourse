@@ -15,6 +15,8 @@ public class JDialogChiTiet extends JDialog {
         JTextArea textArea = new JTextArea(10, 30);
         textArea.setText(text);
         textArea.setEditable(false);
+        Font consoleFont = new Font(Font.MONOSPACED, Font.PLAIN, 12); // Điều chỉnh kích thước font theo nhu cầu
+        textArea.setFont(consoleFont);
         
         // Đặt JTextArea vào JScrollPane để cuộn nếu cần
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -23,7 +25,7 @@ public class JDialogChiTiet extends JDialog {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
         // Thiết lập kích thước và hiển thị JDialog
-        setSize(400, 300);
+        setSize(500, 300);
         setLocationRelativeTo(parent);
     }
 
