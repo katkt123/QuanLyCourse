@@ -4,6 +4,8 @@
  */
 package DTO;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author DELL
@@ -11,12 +13,15 @@ package DTO;
 public class PhanCongDTO {
     private int CourseID, PersonID;
     private String Title, Name;
+    private LocalDateTime StartDate;
 
-    public PhanCongDTO(int CourseID, String Title, int PersonID, String Name) {
+    
+    public PhanCongDTO(int CourseID, String Title, int PersonID, String Name, LocalDateTime StartDate) {
         this.CourseID = CourseID;
         this.PersonID = PersonID;
         this.Title = Title;
         this.Name = Name;
+        this.StartDate = StartDate;
     }
 
     public PhanCongDTO(int CourseID, int PersonID) {
@@ -57,6 +62,15 @@ public class PhanCongDTO {
     public void setName(String Name) {
         this.Name = Name;
     }
+    
+    public LocalDateTime getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(LocalDateTime StartDate) {
+        this.StartDate = StartDate;
+    }
+
     
     
 }
