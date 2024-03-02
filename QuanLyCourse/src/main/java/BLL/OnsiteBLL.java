@@ -42,4 +42,7 @@ public class OnsiteBLL {
     public KhoaHocOnSiteDTO getOnSiteCourseByID(int id){
         return onsiteDAL.getOnSiteCourseByID(id);
     }
+    public KhoaHocOnSiteDTO getOnSiteCourseByID(String id){
+        return onsiteDAL.getOnSiteCourseByID(Integer.parseInt(id));
+    }
 }

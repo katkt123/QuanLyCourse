@@ -41,16 +41,18 @@ public class PhanCongDAL {
     public ArrayList<PhanCongDTO> getListHienThi(){
         ArrayList<PhanCongDTO> List = new ArrayList<>();
         ResultSet rs = null;
-        String query = "SELECT course.CourseID, Title, person.PersonID, CONCAT_WS(\"  \",person.Lastname,person.Firstname) AS 'Name'\n" +
-        "FROM course\n" +
-        "LEFT JOIN courseinstructor\n" +
-        "ON course.CourseID = courseinstructor.CourseID\n" +
-        "LEFT JOIN person\n" +
-        "ON courseinstructor.PersonID = person.PersonID";
+        String query = "SELECT course.CourseID, Title, person.PersonID, CONCAT_WS(' ', person.Lastname, person.Firstname) AS 'Name', department.StartDate\n" +
+                        "FROM course\n" +
+                        "LEFT JOIN courseinstructor\n" +
+                        "ON course.CourseID = courseinstructor.CourseID\n" +
+                        "LEFT JOIN person\n" +
+                        "ON courseinstructor.PersonID = person.PersonID\n" +
+                        "LEFT JOIN department\n" +
+                        "ON course.DepartmentID = department.DepartmentID;";
         try {
             rs = this.conn.getState().executeQuery(query);
             while(rs.next()){
-                List.add(new PhanCongDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4)));
+                List.add(new PhanCongDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4),rs.getTimestamp(5).toLocalDateTime()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class PhanCongDAL {
     }                    
     
     public boolean ThemPhanCong(int CourseID, int PersonID){
-        String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?,?,?);";
+        String sql = "INSERT INTO courseinstructor (CourseID, PersonID) VALUES (?,?);";
         try {
             PreparedStatement ps = conn.getConn().prepareCall(sql);
             ps.setInt(1, CourseID);
@@ -68,7 +70,6 @@ public class PhanCongDAL {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return false;
     }
     
