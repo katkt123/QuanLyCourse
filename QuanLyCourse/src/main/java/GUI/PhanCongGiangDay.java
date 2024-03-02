@@ -109,9 +109,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH));
         btnRefresh.setIcon(icon);
     }
-    public void setIconXemChiTiet(){
-        
-    }
+
      public void loadPC(){
          
         ResetTXT();
@@ -266,22 +264,43 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             @Override
             public void onEdit(int row) {
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
+                int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
+                String Title = jTable_PhanCong.getValueAt(row, 1).toString();
                 
-                if(Name.isEmpty()){
-                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
+                
+                 // So sánh thời gian hiện tại với thời gian từ cơ sở dữ liệu
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                long minutesDifference = ChronoUnit.MINUTES.between(getObject(CourseID).getStartDate(), currentDateTime);
+                                
+                if (minutesDifference <= 0){
+                    if(Name.isEmpty()){
+                        JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
+                    }
+                    else{
+                        int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
+                        SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
+                        sgv.setVisible(true);
+                        sgv.addWindowListener(new WindowAdapter() {
+                            public void windowClosed(WindowEvent e) {
+                                loadPC();
+                            }
+                        });
+                    }
                 }
                 else{
-                    int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
-                    String Title = jTable_PhanCong.getValueAt(row, 1).toString();
-                    int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
-
-                    SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
-                    sgv.setVisible(true);
-                    sgv.addWindowListener(new WindowAdapter() {
-                        public void windowClosed(WindowEvent e) {
-                            loadPC();
-                        }
-                    });
+                    if (Name.isEmpty()){
+                        JOptionPane.showMessageDialog(jScrollPane1, "Đã quá hạn phân công");
+                    }
+                    else{
+                        int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
+                        SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
+                        sgv.setVisible(true);
+                        sgv.addWindowListener(new WindowAdapter() {
+                            public void windowClosed(WindowEvent e) {
+                                loadPC();
+                            }
+                        });
+                    }        
                 }
             }
 
@@ -493,7 +512,6 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
         btnRefresh.setBackground(new java.awt.Color(0, 155, 155));
         btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshActionPerformed(evt);
@@ -553,45 +571,48 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rdbChua)
-                    .addComponent(rdbDa)
-                    .addComponent(rdbTatCa))
-                .addGap(0, 75, Short.MAX_VALUE)
-                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                    .addGroup(panel2Layout.createSequentialGroup()
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel2Layout.createSequentialGroup()
+                                .addComponent(rdbDa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rdbTatCa))
+                        .addContainerGap())
+                    .addGroup(panel2Layout.createSequentialGroup()
+                        .addComponent(rdbChua)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(rdbTatCa)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(txtCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4)
+                            .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
                     .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(rdbTatCa)
-                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRefresh)
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addComponent(rdbChua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rdbDa))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtCourseID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPersonID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(17, 56, Short.MAX_VALUE)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)))
-                .addContainerGap())
+                                .addComponent(rdbDa)))
+                        .addGap(16, 16, 16))))
         );
 
         jTable_PhanCong.setAutoCreateRowSorter(true);
@@ -665,9 +686,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             String title = em.getTitle();
             int PersonID = em.getPersonID();
             String Name = em.getName();
+            String date = em.getStartDate().format(StartDateformatter);
             
             if (PersonID == 0){
-                Object[] row = {CourseID,title," ", Name};
+                Object[] row = {CourseID,title," ", Name, date};
                 modelPC.addRow(row);
             }
 
@@ -686,9 +708,10 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
             String title = em.getTitle();
             int PersonID = em.getPersonID();
             String Name = em.getName();
+            String date = em.getStartDate().format(StartDateformatter);
             
             if (PersonID != 0){
-                Object[] row = {CourseID,title,PersonID, Name};
+                Object[] row = {CourseID,title,PersonID, Name, date};
                 modelPC.addRow(row);
             }
 
