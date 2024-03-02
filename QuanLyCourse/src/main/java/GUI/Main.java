@@ -41,6 +41,7 @@ public class Main extends javax.swing.JFrame {
 //        addComponent("Khoa",new SinhVienGUI(),"Faculty.png");
         addComponent("Phân Công",new PhanCongGiangDay(),"Pen.png");
         addComponent("Nhập Điểm",new NhapDiemGUI(),"Score.png");
+        
         Event();
         
     }
