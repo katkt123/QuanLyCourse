@@ -234,29 +234,20 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                 String Name = jTable_PhanCong.getValueAt(row, 3).toString();
                 int CourseID = (int) jTable_PhanCong.getValueAt(row, 0);
 
-                // So sánh thời gian hiện tại với thời gian từ cơ sở dữ liệu
-                LocalDateTime currentDateTime = LocalDateTime.now();
-                long minutesDifference = ChronoUnit.MINUTES.between(getObject(CourseID).getStartDate(), currentDateTime);
-                
-                if (minutesDifference <= 0){
-                
-                    if (Name.isEmpty()){
+                if (Name.isEmpty()){
 
-                        String Title = jTable_PhanCong.getValueAt(row, 1).toString();
+                    String Title = jTable_PhanCong.getValueAt(row, 1).toString();
 
-                        ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
-                        tgv.setVisible(true);
-                        tgv.addWindowListener(new WindowAdapter() {
-                            public void windowClosed(WindowEvent e) {
-                                loadPC();
-                            }
-                        });
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(jScrollPane1, "Khóa học đã được phân công");
-                    }
-                }else{
-                        JOptionPane.showMessageDialog(jScrollPane1, "Đã quá hạn phân công");
+                    ThemGV_vao_khoa_hoc tgv = new ThemGV_vao_khoa_hoc(CourseID,Title);
+                    tgv.setVisible(true);
+                    tgv.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            loadPC();
+                        }
+                    });
+                }
+                else{
+                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học đã được phân công");
                 }
                 
             }
@@ -268,40 +259,20 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                 String Title = jTable_PhanCong.getValueAt(row, 1).toString();
                 
                 
-                 // So sánh thời gian hiện tại với thời gian từ cơ sở dữ liệu
-                LocalDateTime currentDateTime = LocalDateTime.now();
-                long minutesDifference = ChronoUnit.MINUTES.between(getObject(CourseID).getStartDate(), currentDateTime);
-                                
-                if (minutesDifference <= 0){
-                    if(Name.isEmpty()){
-                        JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
-                    }
-                    else{
-                        int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
-                        SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
-                        sgv.setVisible(true);
-                        sgv.addWindowListener(new WindowAdapter() {
-                            public void windowClosed(WindowEvent e) {
-                                loadPC();
-                            }
-                        });
-                    }
+                if(Name.isEmpty()){
+                    JOptionPane.showMessageDialog(jScrollPane1, "Khóa học chưa được phân công");
                 }
                 else{
-                    if (Name.isEmpty()){
-                        JOptionPane.showMessageDialog(jScrollPane1, "Đã quá hạn phân công");
-                    }
-                    else{
-                        int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
-                        SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
-                        sgv.setVisible(true);
-                        sgv.addWindowListener(new WindowAdapter() {
-                            public void windowClosed(WindowEvent e) {
-                                loadPC();
-                            }
-                        });
-                    }        
+                    int PersonID = (int) jTable_PhanCong.getValueAt(row, 2);
+                    SuaGV_trong_khôa_hoc sgv = new SuaGV_trong_khôa_hoc(CourseID,Title,PersonID);
+                    sgv.setVisible(true);
+                    sgv.addWindowListener(new WindowAdapter() {
+                        public void windowClosed(WindowEvent e) {
+                            loadPC();
+                        }
+                    });
                 }
+ 
             }
 
             @Override
@@ -327,7 +298,7 @@ public class PhanCongGiangDay extends javax.swing.JPanel {
                         }
                     }
                 }else{
-                        JOptionPane.showMessageDialog(jScrollPane1, "Đã quá hạn phân công");
+                        JOptionPane.showMessageDialog(jScrollPane1, "Đã quá hạn xóa phân công");
                     }
             }
         };
