@@ -16,10 +16,12 @@ GUI\UpdateSinhVienGUI$1.class
 GUI\Main$2.class
 GUI\UpdateGiangVienGUI.class
 GUI\SinhVienGUI$2.class
+GUI\XemDiemGUI$7.class
 GUI\AddGiangVienGUI$3.class
 GUI\PhanCongGiangDay$7.class
 GUI\SuaGV_trong_khôa_hoc$1.class
 GUI\KhoaHocGUI$9.class
+GUI\JDialogChiTiet.class
 GUI_Custom_Table_PC\ActionButton$1.class
 GUI_Custom_Table_PC\PanelAction.class
 GUI_Custom_Table_PC\PanelAction$1.class
@@ -33,6 +35,7 @@ GUI\Main$4.class
 GUI\PhanCongGiangDay$5.class
 GUI_Custom_Table_PC\TableActionCellRender.class
 BLL\DePartBLL.class
+GUI\PhanCongGiangDay$14.class
 GUI\AddKhoaHocGUI$9.class
 DTO\GiangVienDTO.class
 BLL\OnsiteBLL.class
@@ -58,6 +61,7 @@ GUI\PhanCongGiangDay$4.class
 GUI\AddGiangVienGUI$1.class
 GUI\ChinhDiemGUI$2.class
 GUI\NhapDiemGUI$5.class
+GUI\PhanCongGiangDay$3$3.class
 GUI\XemDiemGUI$1.class
 GUI\ThemGV_vao_khoa_hoc$4.class
 GUI\UpdateGiangVienGUI$2.class
@@ -68,7 +72,6 @@ GUI_Custom_Table_PC\PanelAction$3.class
 GUI\AddKhoaHocGUI$2.class
 GUI\GhiDanhGUI$3.class
 GUI\UpdateGiangVienGUI$1.class
-GUI\PhanCongGiangDay$2$1.class
 GUI_Custom_Table_PC\TableActionEvent.class
 GUI\AddGiangVienGUI.class
 GUI\AddGiangVienGUI$2.class
@@ -86,11 +89,13 @@ GUI\KhoaHocGUI$5.class
 GUI\GiangVienGUI$1.class
 GUI\KhoaHocGUI.class
 GUI\SinhVienGUI$6.class
+GUI\XemDiemGUI$6.class
 DAL\SinhVienDAL.class
 GUI\GiangVienGUI$6.class
 GUI\AddSinhVienGUI$2.class
 GUI\AddSinhVienGUI.class
 GUI\KhoaHocGUI$2.class
+GUI\PhanCongGiangDay$3$2.class
 BLL\SinhVienBLL.class
 GUI\GhiDanhGUI.class
 GUI\PhanCongGiangDay$9.class
@@ -114,6 +119,7 @@ GUI\GiangVienGUI$7.class
 GUI\XemDiemGUI$5.class
 GUI\SinhVienGUI$7.class
 GUI\Main.class
+GUI\PhanCongGiangDay$3$1.class
 GUI\AddSinhVienGUI$3.class
 GUI\NhapDiemGUI$1.class
 GUI\PhanCongGiangDay$10.class
@@ -136,7 +142,6 @@ GUI\PhanCongGiangDay$11.class
 GUI\XemDiemGUI$4.class
 GUI\XemDiemGUI.class
 GUI\KhoaHocGUI$7.class
-GUI\PhanCongGiangDay$2$2.class
 GUI\SinhVienGUI$1.class
 GUI\Main$1.class
 GUI\PhanCongGiangDay$8.class

@@ -300,8 +300,8 @@ public class NhapDiemGUI extends javax.swing.JPanel {
 
         for(int i = modelSV.getRowCount()-1;i>=0;i--)
             modelSV.removeRow(i);
-        for(int i = 0; i<arrKhoaHoc.size();i++){
-            KhoaHocDTO em= arrKhoaHoc.get(i);
+        for(int i = 0; i<searchResult.size();i++){
+            KhoaHocDTO em= searchResult.get(i);
             
             int id= em.getCoureID();
             int cd = em.getCredits();
