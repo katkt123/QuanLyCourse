@@ -32,8 +32,10 @@ public class GhiDanhGUI extends javax.swing.JFrame {
         txtStudentID.setEditable(false);
         txtName.setEditable(false);
         setLocationRelativeTo(null);
-        list = khoaHocBLL.getListKH();
+        
+        list = khoaHocBLL.getListGhiDanh(StudentID);
         for (KhoaHocDTO a : list) {
+            
             cbNTitle.addItem(a.getTitle());
             cbCourseID.addItem(Integer.toString(a.getCoureID()));
             

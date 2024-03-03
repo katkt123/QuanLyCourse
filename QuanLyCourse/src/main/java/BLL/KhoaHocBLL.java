@@ -52,5 +52,9 @@ public class KhoaHocBLL {
 //        KhoaHocBLL kh = new KhoaHocBLL();
 //        kh.delKhoaHoc(1);
 //    }
+    
+    public ArrayList<KhoaHocDTO> getListGhiDanh(int PersonID){
+        return khocHocDAL.GetListGhiDanh(PersonID);
+    }
 }
 

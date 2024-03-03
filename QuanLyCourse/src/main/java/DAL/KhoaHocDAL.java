@@ -149,4 +149,32 @@ public class KhoaHocDAL {
 
         return List;
     }
+    
+    public ArrayList<KhoaHocDTO> GetListGhiDanh(int PersonID) {
+        ArrayList<KhoaHocDTO> List = new ArrayList<>();
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT * \n" +
+            "FROM course\n" +
+            "WHERE course.CourseID NOT IN (\n" +
+            "SELECT studentgrade.CourseID\n" +
+            "FROM person\n" +
+            "JOIN studentgrade ON studentgrade.StudentID = person.PersonID\n" +
+            "WHERE person.PersonID = "+PersonID+")";
+            rs = this.conn.getState().executeQuery(query);
+
+            while (rs.next()) {
+
+                if(rs.getString(4) != null){
+                    List.add(new KhoaHocDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý exception nếu có
+        }
+
+        return List;
+    }
 }
