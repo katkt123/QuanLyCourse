@@ -25,7 +25,7 @@ public class JDialogChiTiet extends JDialog {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         
         // Thiết lập kích thước và hiển thị JDialog
-        setSize(500, 300);
+        setSize(500, 500);
         setLocationRelativeTo(parent);
     }
 
