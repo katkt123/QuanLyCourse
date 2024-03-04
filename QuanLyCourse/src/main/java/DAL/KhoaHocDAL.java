@@ -149,4 +149,30 @@ public class KhoaHocDAL {
 
         return List;
     }
+    public String getTeacherCourse(int cid){
+        String s = "";
+        int pid = 0;
+        ResultSet rs = null;
+        ResultSet rs1 = null;
+        String query="Select PersonID From courseinstructor where CourseID = "+cid   ;
+        
+        try {
+            rs = this.conn.getState().executeQuery(query);
+            while(rs.next()){
+                pid = rs.getInt(1);
+                String query1="Select Lastname,Firstname From person where PersonID = "+pid   ;
+                rs1 = this.conn.getState().executeQuery(query1);
+                while(rs1.next()){
+                    String ln = rs1.getString(1);
+                    String fn = rs1.getString(2);
+                    s = ln +" "+ fn;
+                }
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Get Teacher :  "+e);
+        }
+        
+        return s;
+    }
 }

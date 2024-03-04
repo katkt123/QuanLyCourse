@@ -48,6 +48,9 @@ public class KhoaHocBLL {
     public KhoaHocDTO getCourseByID(String id){
         return khocHocDAL.getCourseByID(Integer.parseInt(id));
     }
+    public String getTeacherCourse(int cid){
+        return khocHocDAL.getTeacherCourse(cid);
+    }
 //    public static void main(String[] args) {
 //        KhoaHocBLL kh = new KhoaHocBLL();
 //        kh.delKhoaHoc(1);

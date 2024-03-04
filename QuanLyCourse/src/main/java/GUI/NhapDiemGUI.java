@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NhapDiemGUI extends javax.swing.JPanel {
     KhoaHocBLL khBLL = new KhoaHocBLL();
-    
+    GhiDanhBLL ghiDanhBLL = new GhiDanhBLL();
     ArrayList<KhoaHocDTO> arrKhoaHoc = new ArrayList<KhoaHocDTO>();
             
     DefaultTableModel modelSV = new DefaultTableModel() {
@@ -38,6 +38,11 @@ public class NhapDiemGUI extends javax.swing.JPanel {
             return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
         }
     };
+    
+    public static int cid;
+    public static String name;
+    public static String dn;
+    public static String title;
     
         public static int courseID;
     /**
@@ -323,7 +328,17 @@ public class NhapDiemGUI extends javax.swing.JPanel {
         } else {
             int courseId = Integer.parseInt(jTable_KhoaHoc.getValueAt(selectedRow, 0).toString());
             // Gọi phương thức từ lớp BLL để lấy thông tin StudentID, LastName, FirstName và Grade
-            GhiDanhBLL ghiDanhBLL = new GhiDanhBLL();
+            
+            String did = jTable_KhoaHoc.getValueAt(selectedRow, 2).toString();
+            String tt = jTable_KhoaHoc.getValueAt(selectedRow, 3).toString();
+            
+            cid = courseId;
+            dn = did;
+            name = khBLL.getTeacherCourse(cid);
+            title = tt;
+            
+            
+            
             ArrayList<Object[]> studentGrades = ghiDanhBLL.getStudentGradesByCourseID(courseId);
             
             // Hiển thị form XemDiemGUI và cập nhật dữ liệu trên bảng

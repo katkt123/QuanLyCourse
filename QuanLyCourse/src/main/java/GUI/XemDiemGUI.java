@@ -28,6 +28,10 @@ public class XemDiemGUI extends javax.swing.JFrame {
             return false; // không cho phép chỉnh sửa giá trị các ô trong bảng
         }
     };
+    public int cid = NhapDiemGUI.cid;
+    public String dn = NhapDiemGUI.dn;
+    public String name = NhapDiemGUI.name;
+    public String title =NhapDiemGUI.title;
     /**
      * Creates new form XemDiemGUI
      */
@@ -57,12 +61,22 @@ public class XemDiemGUI extends javax.swing.JFrame {
             jTable_XemDiem.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
         setIconSearch();
+        init();
     }
     
     public void setIconSearch(){
         String imagePath = "src\\main\\java\\Image\\Search.png"; // 
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jLabel3.setIcon(icon);
+    }
+    public void init(){
+        int rowCount = jTable_XemDiem.getRowCount();
+        jLabel4.setText("DANH SÁCH KHÓA "+cid);
+        jLabel_GiangVien.setText("Teacher : "+name);
+        jLabel_Department.setText("Department : "+dn);
+        jLabel_Title.setText("Title : "+title);
+        jLabel_Count.setText("Count : "+rowCount);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,8 +128,8 @@ public class XemDiemGUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel_Count1 = new javax.swing.JLabel();
-        jLabel_Count2 = new javax.swing.JLabel();
+        jLabel_Department = new javax.swing.JLabel();
+        jLabel_Title = new javax.swing.JLabel();
 
         jButton_Create.setBackground(new java.awt.Color(153, 255, 153));
         jButton_Create.setText("Create");
@@ -132,7 +146,7 @@ public class XemDiemGUI extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(102, 255, 102));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("DANH SÁCH KHÓA");
+        jLabel4.setText("DANH SÁCH KHÓA 1050");
 
         jTable_XemDiem.setAutoCreateRowSorter(true);
         jTable_XemDiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -213,18 +227,14 @@ public class XemDiemGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel_Count1.setText("Department :");
+        jLabel_Department.setText("Department :");
 
-        jLabel_Count2.setText("Title :");
+        jLabel_Title.setText("Title :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(285, 285, 285))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,9 +243,9 @@ public class XemDiemGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel_Count, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel_Count1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_Department, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel_Count2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -244,18 +254,22 @@ public class XemDiemGUI extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(261, 261, 261))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_GiangVien, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Count, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Count1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Count2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_Department, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -378,9 +392,9 @@ public class XemDiemGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel_Count;
-    private javax.swing.JLabel jLabel_Count1;
-    private javax.swing.JLabel jLabel_Count2;
+    private javax.swing.JLabel jLabel_Department;
     private javax.swing.JLabel jLabel_GiangVien;
+    private javax.swing.JLabel jLabel_Title;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
