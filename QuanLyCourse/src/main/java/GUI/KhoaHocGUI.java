@@ -10,6 +10,7 @@ import BLL.GiangVienBLL;
 import BLL.KhoaHocBLL;
 import BLL.OnlineBLL;
 import BLL.OnsiteBLL;
+import BLL.PhanCongBLL;
 import BLL.SinhVienBLL;
 import DTO.DepartmentDTO;
 import DTO.GhiDanhDTO;
@@ -17,6 +18,7 @@ import DTO.GiangVienDTO;
 import DTO.KhoaHocDTO;
 import DTO.KhoaHocOnSiteDTO;
 import DTO.KhoaHocOnlineDTO;
+import DTO.PhanCongDTO;
 import DTO.SinhVienDTO;
 import java.awt.Font;
 import java.awt.Image;
@@ -105,11 +107,26 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                         
                         //hiện thông tin của CourseInstructor
                         dialog_text += "--Course Instructor--\n";
+                        for (PhanCongDTO s : new PhanCongBLL().getListHienThiPhanCong()){
+                            if (s.getCourseID()==Integer.parseInt(idKh)){
+                                dialog_text += "PersonID: " + s.getPersonID() + "\n";
+                                dialog_text += "Name: " + s.getName() +"\n \n";
+                            }
+                        }
+                        
+                        PhanCongBLL pcBLL = new PhanCongBLL();
+                        int gvID =-1;
+                        for (PhanCongDTO t : pcBLL.getListHienThiPhanCong()){
+                            if (t.getCourseID() == khdto.getCoureID()){
+                                gvID = t.getPersonID();
+                                break;
+                                
+                            }
+                        }
                         GiangVienBLL gvBLL = new GiangVienBLL();
-                        GiangVienDTO gvdto = new GiangVienDTO();
-//                        for (GiangVienDTO t : gvBLL.getListGV()){
-//                            if (t.getPersonID() == )
-//                        }
+                        for (GiangVienDTO t: gvBLL.getListGV()){
+                            
+                        }
                         
                         // hiện thông tin của department
                         DepartmentDTO dpart = new DePartBLL().getDepartmentByID(khdto.getDepartmentID());
@@ -153,6 +170,8 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                         }
                         
                         // các thông tin về việc ghi danh
+                        dialog_text += "Student number: ";
+                        dialog_text += new GhiDanhBLL().getStudentGradesByCourseID(khdto.getCoureID()).size() + "\n";
                         dialog_text +=  String.format("%-15s%-15s%-15s%-15s\n","EnrollmentID","CourseID","StudentID","Grade");
                         dialog_text += "-------------------------------------------------------\n";
                         // Duyệt qua danh sách và thêm thông tin vào chuỗi
@@ -199,7 +218,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
     }
     
     public void setIconSearch(){
-        String imagePath = "src\\main\\java\\Image\\Search.png"; // 
+        String imagePath = "src\\main\\java\\Image\\Search.png"; //
         ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH));
         jLabel1.setIcon(icon);
     }

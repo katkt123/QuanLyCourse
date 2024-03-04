@@ -37,6 +37,8 @@ public class GhiDanhDAL {
         GhiDanhDAL aL = new GhiDanhDAL();
         System.out.println(aL.GhiDanh(1045, 2));
     }
+    
+    
     public ArrayList<Object[]> getStudentGradesByCourseID(int courseID) {
         ArrayList<Object[]> list = new ArrayList<>();
         ResultSet rs = null;

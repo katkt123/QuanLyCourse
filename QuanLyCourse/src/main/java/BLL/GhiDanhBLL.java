@@ -19,6 +19,7 @@ public class GhiDanhBLL {
         }
         return "Ghi danh thất bại :((";
     }
+    
     public ArrayList<Object[]> getStudentGradesByCourseID(int courseID) {
         return gd.getStudentGradesByCourseID(courseID);
     }
