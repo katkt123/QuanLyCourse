@@ -36,7 +36,7 @@ public class JDialogChiTiet extends JDialog {
         searchField = new JTextField(20);
         
         searchField.setForeground(Color.GRAY); // Thiết lập màu chữ mặc định là màu xám
-        searchField.setText("Search..."); // Thiết lập gợi ý mặc định
+        searchField.setText(" Search...."); // Thiết lập gợi ý mặc định
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -57,17 +57,16 @@ public class JDialogChiTiet extends JDialog {
         searchField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchField.getText().equals("Search...")) {
-                    searchField.setText(""); // Xóa gợi ý khi người dùng tương tác với trường văn bản
-                    searchField.setForeground(Color.BLACK); // Thay đổi màu chữ khi nhập văn bản
+                if (searchField.getText().equals(" Search....")) {
+                    searchField.setText(""); 
+                    searchField.setForeground(Color.BLACK); 
                 }
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 if (searchField.getText().isEmpty()) {
-                    searchField.setText("Search..."); // Hiển thị lại gợi ý khi không có văn bản và không focus
-                    searchField.setForeground(Color.GRAY); // Thiết lập màu chữ trở lại màu xám
+                    searchField.setText(" Search...."); 
+                    searchField.setForeground(Color.GRAY); 
                 }
             }
         });
@@ -135,7 +134,7 @@ private void highlightText(String keyword, Color textColor, Color bgColor) {
             // Tiếp tục tìm kiếm từ khóa tiếp theo
             index = text.indexOf(keyword, index + 1);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
     }
 }
