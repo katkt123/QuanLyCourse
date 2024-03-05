@@ -105,7 +105,7 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                         dialog_text += "Credits: "+ khdto.getCredits()+ "\n";
                         dialog_text += "DepartmentID: "+ khdto.getDepartmentID()+ "\n \n";
                         
-                        //hiện thông tin của CourseInstructor
+                        // hiện thông tin của CourseInstructor
                         dialog_text += "--Course Instructor--\n";
                         for (PhanCongDTO s : new PhanCongBLL().getListHienThiPhanCong()){
                             if (s.getCourseID()==Integer.parseInt(idKh)){
@@ -120,7 +120,6 @@ public class KhoaHocGUI extends javax.swing.JPanel {
                             if (t.getCourseID() == khdto.getCoureID()){
                                 gvID = t.getPersonID();
                                 break;
-                                
                             }
                         }
                         GiangVienBLL gvBLL = new GiangVienBLL();
